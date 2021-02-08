@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
+import android.provider.Settings;
 
 
 import androidx.core.app.NotificationCompat;
@@ -49,9 +50,7 @@ public class ReminderAlarmService extends IntentService {
                 .getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
 
         //Grab the task description
-        if(uri != null){
-            cursor = getContentResolver().query(uri, null, null, null, null);
-        }
+        Cursor cursor = getContentResolver().query(uri, null, null, null, null);
 
         String description = "";
         try {
@@ -64,11 +63,12 @@ public class ReminderAlarmService extends IntentService {
             }
         }
 
-        Notification note = new NotificationCompat.Builder(this, "channelId")
-                .setContentTitle(getString(R.string.reminder_title))
+        Notification note = new NotificationCompat.Builder(this, getString(R.string.Notify))
                 .setContentText(description)
                 .setSmallIcon(R.drawable.ic_add_alert_black_24dp)
                 .setContentIntent(operation)
+                .setVibrate(new long[] { 1000, 1000, 1000, 1000, 1000 })
+                .setSound(Settings.System.DEFAULT_NOTIFICATION_URI)
                 .setAutoCancel(true)
                 .build();
 

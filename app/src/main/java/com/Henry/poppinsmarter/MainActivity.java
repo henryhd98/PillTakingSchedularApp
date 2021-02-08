@@ -1,18 +1,25 @@
 package com.Henry.poppinsmarter;
 
 
+import android.app.AlertDialog;
 import android.app.LoaderManager;
 import android.app.ProgressDialog;
 import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.CursorLoader;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -20,6 +27,8 @@ import androidx.appcompat.widget.Toolbar;
 import com.Henry.poppinsmarter.data.AlarmReminderContract;
 import com.Henry.poppinsmarter.data.AlarmReminderDbHelper;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -29,6 +38,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     AlarmReminderDbHelper alarmReminderDbHelper = new AlarmReminderDbHelper(this);
     ListView reminderListView;
     ProgressDialog prgDialog;
+    TextView reminderText;
+
+    private String alarmTitle = "";
+   // FirebaseDatabase database = FirebaseDatabase.getInstance();
+   // DatabaseReference myRef = database.getReference();
 
     private static final int VEHICLE_LOADER = 0;
 
@@ -43,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
 
         reminderListView = (ListView) findViewById(R.id.list);
+        reminderText = (TextView) findViewById(R.id.reminderText);
         View emptyView = findViewById(R.id.empty_view);
         reminderListView.setEmptyView(emptyView);
 
@@ -55,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
                 Intent intent = new Intent(MainActivity.this, AddReminderActivity.class);
 
-                Uri currentVehicleUri = ContentUris.withAppendedId(AlarmReminderContract.AlarmReminderEntry.CONTENT_URI, id);
+                Uri currentVehicleUri = ContentUris.withAppendedId(AlarmReminderContract.AlarmReminderEntry.CONTENT_URI, id); //This will call the content URI when the reminder is clicked on, (pulls the id of the chosen alarm)
 
                 // Set the URI on the data field of the intent
                 intent.setData(currentVehicleUri);
@@ -66,23 +81,24 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         });
 
 
-        mAddReminderButton = (FloatingActionButton) findViewById(R.id.fab);
+
+        mAddReminderButton = (FloatingActionButton) findViewById(R.id.fab); //To add an alarm
 
         mAddReminderButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), AddReminderActivity.class);
-                startActivity(intent);
+                //Intent intent = new Intent(v.getContext(), AddReminderActivity.class);
+                //startActivity(intent);
+                addReminderTitle();
             }
         });
 
         getLoaderManager().initLoader(VEHICLE_LOADER, null, this);
 
-
     }
 
     @Override
-    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {  //What is displayed in the list view, calling all columns
         String[] projection = {
                 AlarmReminderContract.AlarmReminderEntry._ID,
                 AlarmReminderContract.AlarmReminderEntry.KEY_TITLE,
@@ -105,14 +121,70 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
     @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) { //Swap the cursor from the cursor adapter and pass the DB query
         mCursorAdapter.swapCursor(cursor);
+        if (cursor.getCount() > 0){
+            reminderText.setVisibility(View.VISIBLE);
+        }else{
+            reminderText.setVisibility(View.INVISIBLE);
+        }
+        //If the cursor is greater than 0, the reminder is shown
+
 
     }
 
     @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
+    public void onLoaderReset(Loader<Cursor> loader) { //Reset the loader by passing null
         mCursorAdapter.swapCursor(null);
+
+    }
+
+    public void addReminderTitle(){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Set Reminder Title");
+
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        builder.setView(input);
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (input.getText().toString().isEmpty()){
+                    return;
+                }
+
+                alarmTitle = input.getText().toString();
+                ContentValues values = new ContentValues();
+
+                values.put(AlarmReminderContract.AlarmReminderEntry.KEY_TITLE, alarmTitle);
+
+                Uri newUri = getContentResolver().insert(AlarmReminderContract.AlarmReminderEntry.CONTENT_URI, values);
+
+                restartLoader();
+
+
+                if (newUri == null) {
+                    Toast.makeText(getApplicationContext(), "Setting Reminder Title failed", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Title set successfully", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
+    }
+
+    public void restartLoader(){
+        getLoaderManager().restartLoader(VEHICLE_LOADER, null, this); //restarts teh loader based on the activity and the interger of the loader itself
 
     }
 }

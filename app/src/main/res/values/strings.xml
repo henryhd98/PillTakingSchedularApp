@@ -41,4 +41,5 @@
     <string name="editor_update_reminder_failed">Error with updating reminder</string>
 
     <string name="reminder_title">AlarmReminder</string>
+    <string name="Notify">default</string>
 </resources>

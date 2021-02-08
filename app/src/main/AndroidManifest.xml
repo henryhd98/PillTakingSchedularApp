@@ -28,6 +28,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity"
                 />
+            <meta-data
+                android:name="com.google.firebase.messaging.default_notification_channel_id"
+                android:value="Notify" />
         </activity>
         <provider
             android:name=".data.AlarmReminderProvider"

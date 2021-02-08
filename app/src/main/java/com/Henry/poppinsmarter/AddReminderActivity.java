@@ -1,9 +1,7 @@
 package com.Henry.poppinsmarter;
 
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.app.LoaderManager;
-import android.app.TimePickerDialog;
 import android.content.ContentValues;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
@@ -15,6 +13,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -30,10 +29,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NavUtils;
 
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.Henry.poppinsmarter.data.AlarmReminderContract;
 import com.Henry.poppinsmarter.reminder.AlarmScheduler;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
+import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
+import com.wdullaer.materialdatetimepicker.time.RadialPickerLayout;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import java.util.Calendar;
 
@@ -43,7 +49,21 @@ public class AddReminderActivity extends AppCompatActivity implements
         TimePickerDialog.OnTimeSetListener,
         DatePickerDialog.OnDateSetListener, LoaderManager.LoaderCallbacks<Cursor> {
 
-    private static final int EXISTING_VEHICLE_LOADER = 0;
+    private static final int EXISTING_VEHICLE_LOADER = 0;  //The key to the existing loader
+
+    private DatabaseReference mDatabase;
+    FirebaseDatabase database = FirebaseDatabase.getInstance("https://poppinsmarter-default-rtdb.europe-west1.firebasedatabase.app/");
+
+    DatabaseReference myRef = database.getReference();
+
+    final DatabaseReference ledstatus1= myRef.child("led1").child("value");
+    final DatabaseReference ledstatus2= myRef.child("led2").child("value");
+    final DatabaseReference ledstatus3= myRef.child("led3").child("value");
+    final DatabaseReference ledstatus4= myRef.child("led4").child("value");
+    final DatabaseReference ledstatus5= myRef.child("led5").child("value");
+    final DatabaseReference ledstatus6= myRef.child("led6").child("value");
+    final DatabaseReference ledstatus7= myRef.child("led7").child("value");
+
 
 
     private Toolbar mToolbar;
@@ -63,7 +83,7 @@ public class AddReminderActivity extends AppCompatActivity implements
     private String mRepeatType;
     private String mActive;
 
-    private Uri mCurrentReminderUri;
+    private Uri mCurrentReminderUri; //This will let us know if this already a saved data in the DB
     private boolean mVehicleHasChanged = false;
 
     // Values for orientation change
@@ -96,22 +116,22 @@ public class AddReminderActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_reminder);
 
-        Intent intent = getIntent();
-        mCurrentReminderUri = intent.getData();
+        Intent intent = getIntent(); //
+        mCurrentReminderUri = intent.getData(); //Calls the intent getData when the URI is a saved one in the DB
 
-        if (mCurrentReminderUri == null) {
+        if (mCurrentReminderUri == null) {  //If there's no data on the URI then it will create a brand new alarm in the DB with a new URI
 
             setTitle(getString(R.string.editor_activity_title_new_reminder));
 
             // Invalidate the options menu, so the "Delete" menu option can be hidden.
             // (It doesn't make sense to delete a reminder that hasn't been created yet.)
             invalidateOptionsMenu();
-        } else {
+        } else { //Option to edit the reminder if it exists
 
             setTitle(getString(R.string.editor_activity_title_edit_reminder));
 
 
-            getLoaderManager().initLoader(EXISTING_VEHICLE_LOADER, null, this);
+            getLoaderManager().initLoader(EXISTING_VEHICLE_LOADER, null, this); //Triggers the loader to display the content, and this is where you can change the attributes
         }
 
 
@@ -133,7 +153,7 @@ public class AddReminderActivity extends AppCompatActivity implements
         mRepeatNo = Integer.toString(1);
         mRepeatType = "Hour";
 
-        mCalendar = Calendar.getInstance();
+        mCalendar = Calendar.getInstance(); //Initialising the Calender
         mHour = mCalendar.get(Calendar.HOUR_OF_DAY);
         mMinute = mCalendar.get(Calendar.MINUTE);
         mYear = mCalendar.get(Calendar.YEAR);
@@ -166,7 +186,7 @@ public class AddReminderActivity extends AppCompatActivity implements
         mRepeatTypeText.setText(mRepeatType);
         mRepeatText.setText("Every " + mRepeatNo + " " + mRepeatType + "(s)");
 
-        // To save state on device rotation
+        // Saving the state on device rotation
         if (savedInstanceState != null) {
             String savedTitle = savedInstanceState.getString(KEY_TITLE);
             mTitleText.setText(savedTitle);
@@ -196,11 +216,12 @@ public class AddReminderActivity extends AppCompatActivity implements
         }
 
         // Setup up active buttons
-        if (mActive.equals("false")) {
+        if (mActive.equals("false")) { //The FAB will have the non reminder icon
+
             mFAB1.setVisibility(View.VISIBLE);
             mFAB2.setVisibility(View.GONE);
 
-        } else if (mActive.equals("true")) {
+        } else if (mActive.equals("true")) { // FAB will have reminder icon
             mFAB1.setVisibility(View.GONE);
             mFAB2.setVisibility(View.VISIBLE);
         }
@@ -210,13 +231,140 @@ public class AddReminderActivity extends AppCompatActivity implements
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
+        ledstatus1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //this method is called once with the initial value and again whenever data at this location is updated
+
+                String value = dataSnapshot.getValue(String.class);
+                Log.d("file","Value is : "+ value);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error){
+                //Failed to read value
+                Log.w("file", "Failed to read value", error.toException());
+            }
+
+        });
+
+        ledstatus2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //this method is called once with the initial value and again whenever data at this location is updated
+
+                String value = dataSnapshot.getValue(String.class);
+                Log.d("file","Value is : "+ value);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error){
+                //Failed to read value
+                Log.w("file", "Failed to read value", error.toException());
+            }
+
+        });
+
+        ledstatus3.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //this method is called once with the initial value and again whenever data at this location is updated
+
+                String value = dataSnapshot.getValue(String.class);
+                Log.d("file","Value is : "+ value);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error){
+                //Failed to read value
+                Log.w("file", "Failed to read value", error.toException());
+            }
+
+        });
+
+        ledstatus4.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //this method is called once with the initial value and again whenever data at this location is updated
+
+                String value = dataSnapshot.getValue(String.class);
+                Log.d("file","Value is : "+ value);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error){
+                //Failed to read value
+                Log.w("file", "Failed to read value", error.toException());
+            }
+
+        });
+
+        ledstatus5.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //this method is called once with the initial value and again whenever data at this location is updated
+
+                String value = dataSnapshot.getValue(String.class);
+                Log.d("file","Value is : "+ value);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error){
+                //Failed to read value
+                Log.w("file", "Failed to read value", error.toException());
+            }
+
+        });
+
+        ledstatus6.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //this method is called once with the initial value and again whenever data at this location is updated
+
+                String value = dataSnapshot.getValue(String.class);
+                Log.d("file","Value is : "+ value);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error){
+                //Failed to read value
+                Log.w("file", "Failed to read value", error.toException());
+            }
+
+        });
+
+
+        ledstatus7.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                //this method is called once with the initial value and again whenever data at this location is updated
+
+                String value = dataSnapshot.getValue(String.class);
+                Log.d("file","Value is : "+ value);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error){
+                //Failed to read value
+                Log.w("file", "Failed to read value", error.toException());
+            }
+
+        });
+
 
     }
 
     @Override
     protected void onSaveInstanceState (Bundle outState) {
         super.onSaveInstanceState(outState);
-
+        //Passing the data to the appropriate fields
         outState.putCharSequence(KEY_TITLE, mTitleText.getText());
         outState.putCharSequence(KEY_TIME, mTimeText.getText());
         outState.putCharSequence(KEY_DATE, mDateText.getText());
@@ -227,34 +375,44 @@ public class AddReminderActivity extends AppCompatActivity implements
     }
 
     // On clicking Time picker
-    public void setTime(View v){
+    public void setTime(View v) {
+
+        if (mCurrentReminderUri == null) {
+            Toast.makeText(this, "click again on the reminder list to set time alarm", Toast.LENGTH_LONG).show();
+            return;
+        }
         Calendar now = Calendar.getInstance();
-        TimePickerDialog tpd = new TimePickerDialog(
-                this,null,
+        TimePickerDialog tpd = TimePickerDialog.newInstance(
+                this,
                 now.get(Calendar.HOUR_OF_DAY),
                 now.get(Calendar.MINUTE),
                 false
         );
-       // tpd.setThemeDark(false);
-        tpd.show();
-    }
 
+        tpd.show(getFragmentManager(), "Timepickerdialog");
+    }
     // On clicking Date picker
     public void setDate(View v){
+
+        if(mCurrentReminderUri == null){
+            Toast.makeText(this, "click again on the reminder list to set date alarm", Toast.LENGTH_LONG).show();
+            return;
+        }
+
         Calendar now = Calendar.getInstance();
-        DatePickerDialog dpd = new DatePickerDialog(
-                this,null,
+        DatePickerDialog dpd = DatePickerDialog.newInstance(
+                this,
                 now.get(Calendar.YEAR),
                 now.get(Calendar.MONTH),
                 now.get(Calendar.DAY_OF_MONTH)
         );
 
-        dpd.show();
+        dpd.show(getFragmentManager(), "Datepickerdialog");
     }
 
     // Obtain time from time picker
     @Override
-    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+    public void onTimeSet(RadialPickerLayout  view, int hourOfDay, int minute) {
         mHour = hourOfDay;
         mMinute = minute;
         if (minute < 10) {
@@ -267,7 +425,7 @@ public class AddReminderActivity extends AppCompatActivity implements
 
     // Obtain date from date picker
     @Override
-    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
         monthOfYear ++;
         mDay = dayOfMonth;
         mMonth = monthOfYear;
@@ -372,6 +530,8 @@ public class AddReminderActivity extends AppCompatActivity implements
         getMenuInflater().inflate(R.menu.menu_add_reminder, menu);
         return true;
     }
+
+
 
     /**
      * This method is called after invalidateOptionsMenu(), so that the
@@ -587,6 +747,7 @@ public class AddReminderActivity extends AppCompatActivity implements
             }
         }
 
+
         // Create a new notification
         if (mActive.equals("true")) {
             if (mRepeat.equals("true")) {
@@ -604,6 +765,7 @@ public class AddReminderActivity extends AppCompatActivity implements
                 Toast.LENGTH_SHORT).show();
 
     }
+
 
     // On pressing the back button
     @Override
@@ -675,7 +837,11 @@ public class AddReminderActivity extends AppCompatActivity implements
             mRepeatText.setText("Every " + repeatNo + " " + repeatType + "(s)");
             // Setup up active buttons
             // Setup repeat switch
-            if (repeat.equals("false")) {
+            if (repeat == null){
+                mRepeatSwitch.setChecked(false);
+                mRepeatText.setText(R.string.repeat_off);
+            }
+            else if (repeat.equals("false")) {
                 mRepeatSwitch.setChecked(false);
                 mRepeatText.setText(R.string.repeat_off);
 
@@ -686,11 +852,13 @@ public class AddReminderActivity extends AppCompatActivity implements
         }
 
 
+
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
 
     }
+
 
 }

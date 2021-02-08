@@ -5,7 +5,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.provider.BaseColumns;
 
-public class AlarmReminderContract {
+public class AlarmReminderContract {  //This class is used to set up columns which will be saving data to the DB
 
     private AlarmReminderContract() {}
 
@@ -17,7 +17,7 @@ public class AlarmReminderContract {
 
     public static final class AlarmReminderEntry implements BaseColumns {
 
-        public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_VEHICLE);
+        public static final Uri CONTENT_URI = Uri.withAppendedPath(BASE_CONTENT_URI, PATH_VEHICLE); //To create the content URI/ append the BaseContentURI with the reminder path created
 
         public static final String CONTENT_LIST_TYPE =
                 ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_VEHICLE;
@@ -39,7 +39,7 @@ public class AlarmReminderContract {
 
     }
 
-    public static String getColumnString(Cursor cursor, String columnName) {
+    public static String getColumnString(Cursor cursor, String columnName) { //Gets the column string of a particular index
         return cursor.getString( cursor.getColumnIndex(columnName) );
     }
 }

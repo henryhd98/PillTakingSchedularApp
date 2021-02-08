@@ -54,13 +54,28 @@ public class AlarmCursorAdapter extends CursorAdapter {
         String repeatType = cursor.getString(repeatTypeColumnIndex);
         String active = cursor.getString(activeColumnIndex);
 
-        String dateTime = date + " " + time;
-
 
         setReminderTitle(title);
-        setReminderDateTime(dateTime);
-        setReminderRepeatInfo(repeat, repeatNo, repeatType);
-        setActiveImage(active);
+
+        if (date != null){
+            String dateTime = date + " " + time;
+            setReminderDateTime(dateTime);
+        }else{
+            mDateAndTimeText.setText("Date not set");
+        }
+
+        if(repeat != null){
+            setReminderRepeatInfo(repeat, repeatNo, repeatType);
+        }else{
+            mRepeatInfoText.setText("Repeat Not Set");
+        }
+
+        if (active != null){
+            setActiveImage(active);
+        }else{
+            mActiveImage.setImageResource(R.drawable.ic_notifications_off_grey600_24dp);
+        }
+      //Handling the null values on date time etc.. to prevent null pointer when binding
 
 
 
