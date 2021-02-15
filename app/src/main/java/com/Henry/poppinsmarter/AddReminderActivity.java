@@ -52,7 +52,7 @@ public class AddReminderActivity extends AppCompatActivity implements
     private static final int EXISTING_VEHICLE_LOADER = 0;  //The key to the existing loader
 
     private DatabaseReference mDatabase;
-    FirebaseDatabase database = FirebaseDatabase.getInstance("https://poppinsmarter-default-rtdb.europe-west1.firebasedatabase.app/");
+    /*FirebaseDatabase database = FirebaseDatabase.getInstance("https://poppinsmarter-default-rtdb.europe-west1.firebasedatabase.app/");
 
     DatabaseReference myRef = database.getReference();
 
@@ -64,7 +64,7 @@ public class AddReminderActivity extends AppCompatActivity implements
     final DatabaseReference ledstatus6= myRef.child("led6").child("value");
     final DatabaseReference ledstatus7= myRef.child("led7").child("value");
 
-
+*/
 
     private Toolbar mToolbar;
     private EditText mTitleText;
@@ -230,7 +230,7 @@ public class AddReminderActivity extends AppCompatActivity implements
         getSupportActionBar().setTitle(R.string.title_activity_add_reminder);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-
+/*
         ledstatus1.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -357,7 +357,7 @@ public class AddReminderActivity extends AppCompatActivity implements
             }
 
         });
-
+*/
 
     }
 

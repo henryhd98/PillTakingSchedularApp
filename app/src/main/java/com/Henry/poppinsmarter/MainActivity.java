@@ -13,9 +13,11 @@ import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.text.InputType;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -39,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     ListView reminderListView;
     ProgressDialog prgDialog;
     TextView reminderText;
+    Button profile;
 
     private String alarmTitle = "";
    // FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -55,6 +58,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         setSupportActionBar(mToolbar);
         mToolbar.setTitle(R.string.app_name);
 
+        profile = (Button) findViewById(R.id.tabs);
+
 
         reminderListView = (ListView) findViewById(R.id.list);
         reminderText = (TextView) findViewById(R.id.reminderText);
@@ -63,6 +68,13 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         mCursorAdapter = new AlarmCursorAdapter(this, null);
         reminderListView.setAdapter(mCursorAdapter);
+
+        profile.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                switchActivitiesWithData();
+            }
+        });
 
         reminderListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -95,6 +107,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         getLoaderManager().initLoader(VEHICLE_LOADER, null, this);
 
+    }
+    private void switchActivitiesWithData() {
+        Intent switchActivityIntent = new Intent(this, ProfileActivity.class);
+        switchActivityIntent.putExtra("message", "From: " + MainActivity.class.getSimpleName());
+        startActivity(switchActivityIntent);
     }
 
     @Override

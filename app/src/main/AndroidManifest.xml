@@ -22,7 +22,10 @@
         <activity android:name=".AddReminderActivity"
             android:label="@string/title_activity_add_reminder"
             android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme"
+          >
+
+
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -31,7 +34,19 @@
             <meta-data
                 android:name="com.google.firebase.messaging.default_notification_channel_id"
                 android:value="Notify" />
+
         </activity>
+        <activity android:name=".ProfileActivity"
+            android:parentActivityName=".MainActivity"
+            android:label="Profile page"
+          >
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity"
+                />
+             </activity>
+
         <provider
             android:name=".data.AlarmReminderProvider"
             android:authorities="com.Henry.poppinsmarter.alarmreminder"
