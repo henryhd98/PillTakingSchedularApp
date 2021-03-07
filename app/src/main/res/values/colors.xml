@@ -12,6 +12,26 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+
+        <color name="transparent">#00ffffff</color>
+
+        <color name="lightWhite">#f2f5f8</color>
+
+
+
+        <!--      Dashboard Colors      -->
+
+        <!--  Body and background Colors  -->
+        <color name="home_background">#f2f5f8</color>
+        <color name="banner_background">#F1E9CE</color>
+        <color name="banner_background_light">#56F1E9CE</color>
+
+        <!--  Card Colors  -->
+        <color name="card1">#d4cbe5</color>
+        <color name="card2">#7adccf</color>
+        <color name="card3">#f7c59f</color>
+        <color name="card4">#b8d7f5</color>
+
     !--colors for profile-->
     <color name="profilePrimaryDark">#FF3B30</color>
     <color name="profileAccentColor">#F7F7F7</color>
@@ -19,4 +39,15 @@
     <color name="profileBackground">#fff</color>
     <color name="blackTextColor">#000</color>
     <color name="profileEditTextColor">#707070</color>
+    <color name="address">#2F7092</color>
+    <color name="followers">#0D5D98</color>
+    <color name="headings">#3797CF</color>
+    <color name="solidCircle">#AAFFFFFF</color>
+    <color name="circleBorder">#50FFFFFF</color>
+    <color name="gradEnd">#67EFC8</color>
+    <color name="gradStart">#63C9FF</color>
+    <color name="followersBg">#65DCE5</color>
+    <color name="followingBg">#49BEFF</color>
+    <color name="grey">#E5E5E5</color>
+
 </resources>

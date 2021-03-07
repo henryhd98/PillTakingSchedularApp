@@ -102,6 +102,7 @@ public class AlarmCursorAdapter extends CursorAdapter {
     // Set date and time views
     public void setReminderDateTime(String datetime) {
         mDateAndTimeText.setText(datetime);
+
     }
 
     // Set repeat views
@@ -121,4 +122,6 @@ public class AlarmCursorAdapter extends CursorAdapter {
             mActiveImage.setImageResource(R.drawable.ic_notifications_off_grey600_24dp);
         }
     }
+
+
 }

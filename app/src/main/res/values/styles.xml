@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-<style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+<style name="AppTheme" parent="Theme.MaterialComponents.NoActionBar">
     <!-- Customize your theme here. -->
     <item name="colorPrimary">@color/colorPrimary</item>
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -11,7 +11,14 @@
     <item name="windowNoTitle">true</item>
     <item name="windowActionModeOverlay">true</item>
 </style>
+    <!--  Menu Style  -->
+    <style name="navigationTheme">
+        <!-- Color of text and icon when SELECTED -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <!-- Background color when SELECTED -->
+        <item name="colorControlHighlight">@color/colorAccent</item>
 
+    </style>
     <style name="Theme.MyApplication.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.MyApplication.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />

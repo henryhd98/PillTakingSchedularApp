@@ -12,7 +12,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".LocationOwner.RetailerDashboard"></activity>
+        <activity android:name=".LoginStartup.ForgetPasswordSuccessMessage" />
+        <activity android:name=".LoginStartup.SetNewPassword" />
+        <activity android:name=".LoginStartup.MakeSelection" />
+        <activity android:name=".LoginStartup.ForgetPassword" />
+        <activity android:name=".LoginStartup.VerifyOTP" />
+        <activity android:name=".LoginStartup.SignUp3rdClass" />
+        <activity android:name=".LoginStartup.SignUp2ndClass" />
+        <activity android:name=".LoginStartup.SignUp" />
+        <activity android:name=".LoginStartup.Login" />
+        <activity android:name=".LoginStartup.StartupScreen" />
+        <activity android:name=".User.AllCategories" />
+        <activity android:name=".OnBoarding" />
+        <activity android:name=".User.UserDashboard" />
+        <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -56,6 +70,10 @@
             android:name=".reminder.ReminderAlarmService"
             android:exported="false" />
 
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
+
 
 </manifest>

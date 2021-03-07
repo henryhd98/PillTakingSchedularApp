@@ -15,6 +15,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.InputType;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -29,8 +30,11 @@ import androidx.appcompat.widget.Toolbar;
 import com.Henry.poppinsmarter.data.AlarmReminderContract;
 import com.Henry.poppinsmarter.data.AlarmReminderDbHelper;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -44,8 +48,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     Button profile;
 
     private String alarmTitle = "";
-   // FirebaseDatabase database = FirebaseDatabase.getInstance();
-   // DatabaseReference myRef = database.getReference();
+
+
 
     private static final int VEHICLE_LOADER = 0;
 
@@ -107,7 +111,10 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         getLoaderManager().initLoader(VEHICLE_LOADER, null, this);
 
+
     }
+
+
     private void switchActivitiesWithData() {
         Intent switchActivityIntent = new Intent(this, ProfileActivity.class);
         switchActivityIntent.putExtra("message", "From: " + MainActivity.class.getSimpleName());

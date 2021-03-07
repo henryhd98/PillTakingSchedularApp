@@ -18,6 +18,33 @@
 
         <TextView
             style="@style/headerText"
+            android:text="Activity"
+            android:layout_marginBottom="20dp"/>
+
+        <ListView
+            android:id="@+id/list1"
+            android:layout_below="@+id/reminderText1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <RelativeLayout
+            android:id="@+id/empty_view1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true">
+
+            <TextView
+                android:id="@+id/no_reminder_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:padding="16dp"
+                android:gravity="center"
+                android:text="Your pill taking activity will be displayed here"/>
+        </RelativeLayout>
+
+        <TextView
+            style="@style/headerText"
             android:text="Account Info"
             android:layout_marginBottom="20dp"/>
 

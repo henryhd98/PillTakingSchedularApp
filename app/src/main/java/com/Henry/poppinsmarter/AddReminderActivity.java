@@ -29,6 +29,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NavUtils;
 
+import com.Henry.poppinsmarter.reminder.ReminderAlarmService;
+import com.Henry.poppinsmarter.reminder.VisualReminder;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.Henry.poppinsmarter.data.AlarmReminderContract;
 import com.Henry.poppinsmarter.reminder.AlarmScheduler;
@@ -51,20 +53,6 @@ public class AddReminderActivity extends AppCompatActivity implements
 
     private static final int EXISTING_VEHICLE_LOADER = 0;  //The key to the existing loader
 
-    private DatabaseReference mDatabase;
-    /*FirebaseDatabase database = FirebaseDatabase.getInstance("https://poppinsmarter-default-rtdb.europe-west1.firebasedatabase.app/");
-
-    DatabaseReference myRef = database.getReference();
-
-    final DatabaseReference ledstatus1= myRef.child("led1").child("value");
-    final DatabaseReference ledstatus2= myRef.child("led2").child("value");
-    final DatabaseReference ledstatus3= myRef.child("led3").child("value");
-    final DatabaseReference ledstatus4= myRef.child("led4").child("value");
-    final DatabaseReference ledstatus5= myRef.child("led5").child("value");
-    final DatabaseReference ledstatus6= myRef.child("led6").child("value");
-    final DatabaseReference ledstatus7= myRef.child("led7").child("value");
-
-*/
 
     private Toolbar mToolbar;
     private EditText mTitleText;
@@ -72,7 +60,7 @@ public class AddReminderActivity extends AppCompatActivity implements
     private FloatingActionButton mFAB1;
     private FloatingActionButton mFAB2;
     private Calendar mCalendar;
-    private int mYear, mMonth, mHour, mMinute, mDay;
+    private int mYear, mMonth, mHour, mMinute, mDay, dayInt;
     private long mRepeatTime;
     private Switch mRepeatSwitch;
     private String mTitle;
@@ -110,6 +98,9 @@ public class AddReminderActivity extends AppCompatActivity implements
             return false;
         }
     };
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -230,134 +221,9 @@ public class AddReminderActivity extends AppCompatActivity implements
         getSupportActionBar().setTitle(R.string.title_activity_add_reminder);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-/*
-        ledstatus1.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                //this method is called once with the initial value and again whenever data at this location is updated
-
-                String value = dataSnapshot.getValue(String.class);
-                Log.d("file","Value is : "+ value);
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error){
-                //Failed to read value
-                Log.w("file", "Failed to read value", error.toException());
-            }
-
-        });
-
-        ledstatus2.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                //this method is called once with the initial value and again whenever data at this location is updated
-
-                String value = dataSnapshot.getValue(String.class);
-                Log.d("file","Value is : "+ value);
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error){
-                //Failed to read value
-                Log.w("file", "Failed to read value", error.toException());
-            }
-
-        });
-
-        ledstatus3.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                //this method is called once with the initial value and again whenever data at this location is updated
-
-                String value = dataSnapshot.getValue(String.class);
-                Log.d("file","Value is : "+ value);
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error){
-                //Failed to read value
-                Log.w("file", "Failed to read value", error.toException());
-            }
-
-        });
-
-        ledstatus4.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                //this method is called once with the initial value and again whenever data at this location is updated
-
-                String value = dataSnapshot.getValue(String.class);
-                Log.d("file","Value is : "+ value);
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error){
-                //Failed to read value
-                Log.w("file", "Failed to read value", error.toException());
-            }
-
-        });
-
-        ledstatus5.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                //this method is called once with the initial value and again whenever data at this location is updated
-
-                String value = dataSnapshot.getValue(String.class);
-                Log.d("file","Value is : "+ value);
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error){
-                //Failed to read value
-                Log.w("file", "Failed to read value", error.toException());
-            }
-
-        });
-
-        ledstatus6.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                //this method is called once with the initial value and again whenever data at this location is updated
-
-                String value = dataSnapshot.getValue(String.class);
-                Log.d("file","Value is : "+ value);
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error){
-                //Failed to read value
-                Log.w("file", "Failed to read value", error.toException());
-            }
-
-        });
 
 
-        ledstatus7.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                //this method is called once with the initial value and again whenever data at this location is updated
 
-                String value = dataSnapshot.getValue(String.class);
-                Log.d("file","Value is : "+ value);
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error){
-                //Failed to read value
-                Log.w("file", "Failed to read value", error.toException());
-            }
-
-        });
-*/
 
     }
 
@@ -405,7 +271,10 @@ public class AddReminderActivity extends AppCompatActivity implements
                 now.get(Calendar.YEAR),
                 now.get(Calendar.MONTH),
                 now.get(Calendar.DAY_OF_MONTH)
+
         );
+
+
 
         dpd.show(getFragmentManager(), "Datepickerdialog");
     }
@@ -672,6 +541,7 @@ public class AddReminderActivity extends AppCompatActivity implements
         finish();
     }
 
+
     // On clicking the save button
     public void saveReminder(){
 
@@ -700,6 +570,9 @@ public class AddReminderActivity extends AppCompatActivity implements
         mCalendar.set(Calendar.HOUR_OF_DAY, mHour);
         mCalendar.set(Calendar.MINUTE, mMinute);
         mCalendar.set(Calendar.SECOND, 0);
+
+
+
 
         long selectedTimestamp =  mCalendar.getTimeInMillis();
 
@@ -730,6 +603,7 @@ public class AddReminderActivity extends AppCompatActivity implements
                 // Otherwise, the insertion was successful and we can display a toast.
                 Toast.makeText(this, getString(R.string.editor_insert_reminder_successful),
                         Toast.LENGTH_SHORT).show();
+
             }
         } else {
 
@@ -751,12 +625,18 @@ public class AddReminderActivity extends AppCompatActivity implements
         // Create a new notification
         if (mActive.equals("true")) {
             if (mRepeat.equals("true")) {
-                new AlarmScheduler().setRepeatAlarm(getApplicationContext(), selectedTimestamp, mCurrentReminderUri, mRepeatTime);
+                new AlarmScheduler().setRepeatAlarm(getApplicationContext(), selectedTimestamp, mCurrentReminderUri, mRepeatTime, dayInt);
+
             } else if (mRepeat.equals("false")) {
-                new AlarmScheduler().setAlarm(getApplicationContext(), selectedTimestamp, mCurrentReminderUri);
+                new AlarmScheduler().setAlarm(getApplicationContext(), selectedTimestamp,mCurrentReminderUri, dayInt);
+                //new VisualReminder().setLedStatus(dayInt);
+
+
+
+
             }
 
-            Toast.makeText(this, "Alarm time is " + selectedTimestamp,
+      Toast.makeText(this, "Alarm time is " + selectedTimestamp,
                     Toast.LENGTH_LONG).show();
         }
 

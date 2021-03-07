@@ -4,7 +4,11 @@
     <string name="title_activity_add_reminder">Add Reminder</string>
     <string name="title_activity_edit_reminder">Edit Reminder</string>
     <string name="title_activity_licenses">Licenses</string>
-
+    <!--Titles-->
+    <string name="first_slide_title">Search Your Location</string>
+    <string name="second_slide_title">Make A Call</string>
+    <string name="third_slide_title">Add Missing Place</string>
+    <string name="fourth_slide_title">Sit Back And Enjoy</string>
     <string name="add_reminder">Reminder</string>
     <string name="details">Details</string>
     <string name="date">Date</string>
@@ -13,6 +17,12 @@
     <string name="repeat_off">Off</string>
     <string name="repeat_no">Repetition Interval </string>
     <string name="repeat_type">Type of Repetitions</string>
+    <!--Descriptions-->
+    <string name="first_slide_desc">You can search any place nearby or with-in the specified city. We will display specific or all related shops to match your search. </string>
+    <string name="second_slide_desc">We provide almost all the numbers of all departments and shops registered with us. You can perform bookings as well.</string>
+    <string name="third_slide_desc">If you have a shop or somethings and want to be a part of our growing industry then add your place by follwing simple steps.</string>
+    <string name="fourth_slide_desc">We will handle everything for you. As you have the app in your pocket then you don\'t have to worry about anything.  </string>
+
 
     <string name="action_discard_reminder">Discard Reminder</string>
     <string name="action_save_reminder">Save Reminder</string>
@@ -45,5 +55,54 @@
     <string name="action_settings">Settings</string>
     <string name="Notify">default</string>
     <string name="channel_name">default</string>
+
+    <!--Buttons-->
+    <string name="skip_btn">Skip</string>
+    <string name="next_btn">Next</string>
+    <string name="let_get_started">Lets Get Started</string>
+
+    <!--     General Menu names     -->
+    <string name="home">HOME</string>
+    <string name="search">SEARCH</string>
+    <string name="all_categories">ALL CATEGORIES</string>
+    <string name="add_missing_place">ADD MISSING PLACE</string>
+    <string name="login">Login</string>
+    <string name="profile">Profile</string>
+    <string name="logout">Logout</string>
+    <string name="share">Share</string>
+    <string name="rate_us">Rate Us</string>
+    <!--  General Strings  -->
+    <string name="sign_up">Sign Up</string>
+    <string name="retailer_heading">Grow\nYour Business</string>
+    <string name="retailer_tag_line">We will help you to grow your business using online services!</string>
+    <string name="create_account">Create\nAccount</string>
+    <string name="how_we_work">How we work?</string>
+    <string name="remember_me">Remember Me</string>
+    <string name="forget_password">Forget Password</string>
+
+    <!--  Field Strings  -->
+    <string name="enter_full_name">Full Name</string>
+    <string name="enter_username">Username</string>
+    <string name="enter_email">Email</string>
+    <string name="enter_phone_number">Phone Number</string>
+    <string name="enter_password">Password</string>
+
+
+    <!--   OTP Screen -->
+    <string name="otp_code_text">Co\nde</string>
+    <string name="otp_verification_text">Verification</string>
+    <string name="otp_description_text">Enter one time password sent on\n+923332225522</string>
+    <!--   Reset Password -->
+    <string name="new_credentials">New\nCredentials</string>
+    <string name="new_credentials_detail">Your identity has been verified!\nSet your new password</string>
+    <string name="forget_password_detail">Provide your account\'s email for which you want to reset your password!</string>
+    <string name="password_updated">Password\nUpdated</string>
+    <string name="password_updated_success_message">your password has been updated!</string>
+    <string name="make_selection">Make\nSelection</string>
+    <string name="make_selection_detail">Select which contact detail should we use to reset your password?</string>
+    <string name="via_sms">via sms:</string>
+    <string name="via_mail">via mail:</string>
+    <string name="verify_code">Verify Code</string>
+    <string name="todo">TODO</string>
 
 </resources>
