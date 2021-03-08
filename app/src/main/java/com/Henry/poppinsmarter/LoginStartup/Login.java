@@ -14,19 +14,17 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.Henry.poppinsmarter.User.UserDashboard;
+import com.Henry.poppinsmarter.MainActivity;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.hbb20.CountryCodePicker;
 import com.Henry.poppinsmarter.data.SessionManager;
 import com.Henry.poppinsmarter.HelperClasses.CheckInternet;
-import com.Henry.poppinsmarter.LocationOwner.RetailerDashboard;
 import com.Henry.poppinsmarter.R;
 
 import java.util.HashMap;
@@ -132,7 +130,7 @@ public class Login extends AppCompatActivity {
                         SessionManager sessionManager = new SessionManager(com.Henry.poppinsmarter.LoginStartup.Login.this, SessionManager.SESSION_USERSESSION);
                         sessionManager.createLoginSession(_fullname, _username, _email, _phoneNo, _password, _dateOfBirth, _gender);
 
-                        startActivity(new Intent(getApplicationContext(), UserDashboard.class));
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         finish();
                         progressbar.setVisibility(View.GONE);
 

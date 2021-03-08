@@ -8,6 +8,7 @@ import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.Henry.poppinsmarter.MainActivity;
 import com.Henry.poppinsmarter.R;
 
 public class AllCategories extends AppCompatActivity {
@@ -26,7 +27,7 @@ public class AllCategories extends AppCompatActivity {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),UserDashboard.class));
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
             }
         });
     }

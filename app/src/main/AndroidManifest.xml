@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LocationOwner.RetailerDashboard"></activity>
+        <activity android:name=".LocationOwner.RetailerDashboard"/>
         <activity android:name=".LoginStartup.ForgetPasswordSuccessMessage" />
         <activity android:name=".LoginStartup.SetNewPassword" />
         <activity android:name=".LoginStartup.MakeSelection" />
@@ -24,7 +24,7 @@
         <activity android:name=".LoginStartup.StartupScreen" />
         <activity android:name=".User.AllCategories" />
         <activity android:name=".OnBoarding" />
-        <activity android:name=".User.UserDashboard" />
+        <activity android:name=".MainActivity" />
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

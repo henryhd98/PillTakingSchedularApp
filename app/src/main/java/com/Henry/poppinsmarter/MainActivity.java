@@ -15,9 +15,7 @@ import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.text.InputType;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -43,7 +41,6 @@ import com.Henry.poppinsmarter.HelperClasses.HomeAdapter.CategoriesHelperClass;
 import com.Henry.poppinsmarter.LocationOwner.RetailerDashboard;
 import com.Henry.poppinsmarter.LoginStartup.StartupScreen;
 import com.Henry.poppinsmarter.User.AllCategories;
-import com.Henry.poppinsmarter.User.UserDashboard;
 import com.Henry.poppinsmarter.data.AlarmReminderContract;
 import com.Henry.poppinsmarter.data.AlarmReminderDbHelper;
 import com.Henry.poppinsmarter.data.SessionManager;
@@ -61,7 +58,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     ListView reminderListView;
     ProgressDialog prgDialog;
     TextView reminderText;
-    Button profile;
     //Variables
     static final float END_SCALE = 0.7f;
 
@@ -104,12 +100,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         mCursorAdapter = new AlarmCursorAdapter(this, null);
         reminderListView.setAdapter(mCursorAdapter);
 
-        profile.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                switchActivitiesWithData();
-            }
-        });
 
         reminderListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

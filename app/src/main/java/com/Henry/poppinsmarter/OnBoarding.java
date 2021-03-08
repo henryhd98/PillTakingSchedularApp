@@ -15,7 +15,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import com.Henry.poppinsmarter.HelperClasses.SliderAdapter;
-import com.Henry.poppinsmarter.User.UserDashboard;
 
 public class OnBoarding extends AppCompatActivity {
 
@@ -50,7 +49,7 @@ public class OnBoarding extends AppCompatActivity {
 
 
     public void skip(View view) {
-        startActivity(new Intent(this, UserDashboard.class));
+        startActivity(new Intent(this, MainActivity.class));
         finish();
     }
 

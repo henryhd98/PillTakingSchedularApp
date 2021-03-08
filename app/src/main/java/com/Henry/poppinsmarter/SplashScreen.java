@@ -12,8 +12,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.Henry.poppinsmarter.User.UserDashboard;
-
 public class SplashScreen extends AppCompatActivity {
 
     private static int SPLASH_TIMER = 2000;
@@ -63,7 +61,7 @@ public class SplashScreen extends AppCompatActivity {
                     finish();
 
                 } else {
-                    Intent intent = new Intent(getApplicationContext(), UserDashboard.class);
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(intent);
                     finish();
                 }
