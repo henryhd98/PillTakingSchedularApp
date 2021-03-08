@@ -54,9 +54,7 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
         setContentView(R.layout.activity_user_dashboard);
 
         //Hooks
-        featuredRecycler = findViewById(R.id.featured_recycler);
-        mostViewedRecycler = findViewById(R.id.most_viewed_recycler);
-        categoriesRecycler = findViewById(R.id.categories_recycler);
+
         menuIcon = findViewById(R.id.menu_icon);
         contentView = findViewById(R.id.content);
         loginSignUpBtn = findViewById(R.id.login_signup);
@@ -71,9 +69,7 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
 
 
         //Recycler Views Function Calls
-        featuredRecycler();
-        mostViewedRecycler();
-        categoriesRecycler();
+
 
     }
 
@@ -163,38 +159,9 @@ public class UserDashboard extends AppCompatActivity implements NavigationView.O
 
     }
 
-    private void mostViewedRecycler() {
-
-        mostViewedRecycler.setHasFixedSize(true);
-        mostViewedRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-
-        ArrayList<MostViewedHelperClass> mostViewedLocations = new ArrayList<>();
-        mostViewedLocations.add(new MostViewedHelperClass(R.drawable.profile_round, "McDonald's"));
-        mostViewedLocations.add(new MostViewedHelperClass(R.drawable.city_2, "Edenrobe"));
-        mostViewedLocations.add(new MostViewedHelperClass(R.drawable.city_1, "J."));
-        mostViewedLocations.add(new MostViewedHelperClass(R.drawable.profile_round, "Walmart"));
-
-        adapter = new MostViewedAdapter(mostViewedLocations);
-        mostViewedRecycler.setAdapter(adapter);
-
-    }
-
-    private void featuredRecycler() {
-
-        featuredRecycler.setHasFixedSize(true);
-        featuredRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-
-        ArrayList<FeaturedHelperClass> featuredLocations = new ArrayList<>();
-
-        featuredLocations.add(new FeaturedHelperClass(R.drawable.profile_round, "Mcdonald's", "asbkd asudhlasn saudnas jasdjasl hisajdl asjdlnas"));
-        featuredLocations.add(new FeaturedHelperClass(R.drawable.city_1, "Edenrobe", "asbkd asudhlasn saudnas jasdjasl hisajdl asjdlnas"));
-        featuredLocations.add(new FeaturedHelperClass(R.drawable.city_2, "Walmart", "asbkd asudhlasn saudnas jasdjasl hisajdl asjdlnas"));
-
-        adapter = new FeaturedAdpater(featuredLocations);
-        featuredRecycler.setAdapter(adapter);
 
 
-    }
+
 
 
     //Normal Functions

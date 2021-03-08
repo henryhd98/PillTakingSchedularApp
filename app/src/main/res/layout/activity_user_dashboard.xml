@@ -5,14 +5,14 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".User.UserDashboard"
-    android:background="@color/white"
+    android:background="#818181"
     android:id="@+id/drawer_layout">
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navigation_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
+        android:background="@color/grey"
         android:theme="@style/navigationTheme"
         android:layout_gravity="start"
         app:headerLayout="@layout/menu_header"
@@ -22,7 +22,7 @@
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/home_background"
+        android:background="@color/grey"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -36,8 +36,8 @@
                 android:id="@+id/menu_icon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_margin="8dp"
                 android:layout_centerVertical="true"
+                android:layout_margin="8dp"
                 android:src="@drawable/menu_icon" />
 
             <ImageView
@@ -46,11 +46,11 @@
                 android:layout_height="40dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
+                android:layout_margin="8dp"
                 android:background="@color/banner_background"
+                android:elevation="6dp"
                 android:onClick="callRetailerScreens"
                 android:padding="5dp"
-                android:layout_margin="8dp"
-                android:elevation="6dp"
                 android:src="@drawable/add_missing_place_icon" />
 
         </RelativeLayout>
@@ -60,13 +60,16 @@
             android:layout_height="match_parent">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:padding="20dp">
 
                     <TextView
                         android:id="@+id/app_name"
@@ -76,7 +79,7 @@
                         android:fontFamily="@font/brandon_grotesque_black"
                         android:text="Smart Pills"
                         android:textColor="@color/colorAccent"
-                        android:textSize="28sp" />
+                        android:textSize="40sp" />
 
 
                     <RelativeLayout
@@ -121,16 +124,16 @@
                         android:orientation="vertical">
 
                         <RelativeLayout
-                            android:layout_width="60dp"
+                            android:layout_width="30dp"
                             android:layout_height="60dp"
                             android:layout_margin="10dp"
                             android:background="@drawable/card_1"
                             android:elevation="8dp">
 
                             <ImageView
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:layout_centerInParent="true"
+                                android:layout_width="20dp"
+                                android:layout_height="match_parent"
+                                android:layout_centerHorizontal="true"
                                 android:src="@drawable/profile_round" />
 
                         </RelativeLayout>
@@ -140,7 +143,9 @@
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal"
                             android:text="slot"
-                            android:textAlignment="center" />
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
@@ -150,7 +155,7 @@
                         android:orientation="vertical">
 
                         <RelativeLayout
-                            android:layout_width="60dp"
+                            android:layout_width="30dp"
                             android:layout_height="60dp"
                             android:layout_margin="10dp"
                             android:background="@drawable/card_2"
@@ -169,7 +174,9 @@
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal"
                             android:text="slot"
-                            android:textAlignment="center" />
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
@@ -179,7 +186,7 @@
                         android:orientation="vertical">
 
                         <RelativeLayout
-                            android:layout_width="60dp"
+                            android:layout_width="30dp"
                             android:layout_height="60dp"
                             android:layout_margin="10dp"
                             android:background="@drawable/card_3"
@@ -198,7 +205,10 @@
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal"
                             android:text="Education"
-                            android:textAlignment="center" />
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
@@ -208,7 +218,7 @@
                         android:orientation="vertical">
 
                         <RelativeLayout
-                            android:layout_width="60dp"
+                            android:layout_width="30dp"
                             android:layout_height="60dp"
                             android:layout_margin="10dp"
                             android:background="@drawable/card_4"
@@ -217,7 +227,7 @@
                             <ImageView
                                 android:layout_width="30dp"
                                 android:layout_height="30dp"
-                                android:layout_centerInParent="true"
+                                android:layout_centerHorizontal="true"
                                 android:src="@drawable/profile_round" />
 
                         </RelativeLayout>
@@ -227,142 +237,178 @@
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal"
                             android:text="slot"
-                            android:textAlignment="center" />
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
 
                     </LinearLayout>
-
-                </LinearLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="20dp"
-                    android:background="@color/lightWhite">
 
                     <LinearLayout
-                        android:id="@+id/featured_background"
-                        android:layout_width="170dp"
-                        android:layout_height="300dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:background="@color/banner_background_light"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginTop="50dp"
-                            android:fontFamily="@font/brandon_grotesque_black"
-                            android:lineHeight="24sp"
-                            android:text="featured_locations"
-                            android:textAllCaps="true"
-                            android:textColor="@color/colorAccent"
-                            android:textSize="25sp" />
+                        <RelativeLayout
+                            android:layout_width="30dp"
+                            android:layout_height="60dp"
+                            android:layout_margin="10dp"
+                            android:background="@drawable/card_4"
+                            android:elevation="8dp">
+
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_centerHorizontal="true"
+                                android:src="@drawable/profile_round" />
+
+                        </RelativeLayout>
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
-                            android:text="featured_locations_description" />
+                            android:gravity="center_horizontal"
+                            android:text="slot"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/featured_recycler"
-                        android:layout_width="match_parent"
+                    <LinearLayout
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/featured_background"
-                        android:background="@color/home_background" />
+                        android:orientation="vertical">
 
+                        <RelativeLayout
+                            android:layout_width="30dp"
+                            android:layout_height="60dp"
+                            android:layout_margin="10dp"
+                            android:background="@drawable/card_4"
+                            android:elevation="8dp">
 
-                </RelativeLayout>
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_centerHorizontal="true"
+                                android:src="@drawable/profile_round" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:orientation="vertical"
-                    android:paddingLeft="20dp"
-                    android:paddingTop="20dp"
-                    android:paddingBottom="20dp">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        </RelativeLayout>
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:fontFamily="@font/brandon_grotesque_black"
-                            android:text="most_viewed_locations"
-                            android:textAllCaps="true"
-                            android:textColor="@color/colorAccent"
-                            android:textSize="20sp" />
+                            android:gravity="center_horizontal"
+                            android:text="slot"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:layout_width="30dp"
+                            android:layout_height="60dp"
+                            android:layout_margin="10dp"
+                            android:background="@drawable/card_4"
+                            android:elevation="8dp">
+
+                            <ImageView
+                                android:layout_width="30dp"
+                                android:layout_height="30dp"
+                                android:layout_centerHorizontal="true"
+                                android:src="@drawable/profile_round" />
+
+                        </RelativeLayout>
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:layout_marginRight="15dp"
-                            android:text="view_all" />
+                            android:gravity="center_horizontal"
+                            android:text="slot"
+                            android:textAlignment="center"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
 
-
-                    </RelativeLayout>
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/most_viewed_recycler"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                    </LinearLayout>
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:orientation="vertical"
-                    android:padding="20dp">
+                    android:layout_height="match_parent"
+
+                    android:orientation="vertical">
 
                     <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:background="@color/grey"
+                        android:padding="20dp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        tools:context="com.Henry.poppinsmarter.MainActivity">
 
                         <TextView
+                            android:id="@+id/reminderText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tabs"
+                            android:padding="16dp"
+                            android:text="CLICK ON REMINDER TITLE TO SET ALARM"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
+
+                        <ListView
+                            android:id="@+id/list"
+                            android:layout_width="match_parent"
+                            android:layout_height="328dp"
+                            android:layout_below="@+id/reminderText"
+                            android:layout_marginTop="5dp"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
+
+                        <RelativeLayout
+                            android:id="@+id/empty_view"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:fontFamily="@font/brandon_grotesque_black"
-                            android:text="categories"
-                            android:textAllCaps="true"
-                            android:textColor="@color/colorAccent"
-                            android:textSize="20sp" />
+                            android:layout_centerInParent="true">
 
-                        <TextView
+                            <TextView
+                                android:id="@+id/no_reminder_text"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerInParent="true"
+                                android:gravity="center"
+                                android:padding="16dp"
+                                android:text="@string/no_cardetails"
+                                android:textColor="@color/black" />
+                        </RelativeLayout>
+
+                        <com.google.android.material.floatingactionbutton.FloatingActionButton
+                            android:id="@+id/fab"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:text="view_all" />
-
+                            android:layout_alignParentBottom="true"
+                            android:layout_margin="@dimen/fab_margin"
+                            android:src="@drawable/ic_add"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            app:backgroundTint="@color/colorAccent"
+                            app:fabSize="normal" />
 
                     </RelativeLayout>
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/categories_recycler"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-
                 </LinearLayout>
 
             </LinearLayout>
+
 
         </ScrollView>
 

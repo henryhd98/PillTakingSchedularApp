@@ -75,22 +75,22 @@ public class SignUp2ndClass extends AppCompatActivity {
 
         Intent intent = new Intent(getApplicationContext(), com.Henry.poppinsmarter.LoginStartup.SignUp3rdClass.class);
 
-        //Pass all fields to the next activity
+//Pass all fields to the next activity
         intent.putExtra("fullName", _fullName);
         intent.putExtra("email", _email);
         intent.putExtra("username", _username);
         intent.putExtra("password", _password);
         intent.putExtra("date", _date);
         intent.putExtra("gender", _gender);
+        intent.putExtra("whatToDO", "createNewUser");
 
-        //Add Transition and call next activity
+        //Add Transition
         Pair[] pairs = new Pair[5];
         pairs[0] = new Pair<View, String>(backBtn, "transition_back_arrow_btn");
         pairs[1] = new Pair<View, String>(next, "transition_next_btn");
         pairs[2] = new Pair<View, String>(login, "transition_login_btn");
         pairs[3] = new Pair<View, String>(titleText, "transition_title_text");
         pairs[4] = new Pair<View, String>(slideText, "transition_slide_text");
-
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(SignUp2ndClass.this, pairs);
             startActivity(intent, options.toBundle());

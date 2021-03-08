@@ -30,9 +30,10 @@
             android:ellipsize="end"
             android:maxLines="2"
             android:layout_height="wrap_content"
-            android:textColor="@color/abc_primary_text_material_dark"
             tools:text="Title"
-            android:textSize="20sp"/>
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="30sp"/>
 
         <TextView
             android:id="@+id/recycle_date_time"
@@ -40,8 +41,9 @@
             android:ellipsize="marquee"
             android:singleLine="true"
             android:layout_height="wrap_content"
-            android:textSize="15sp"
-            android:textColor="@color/abc_secondary_text_material_dark"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
             tools:text="Date and Time"/>
 
         <TextView
@@ -51,7 +53,8 @@
             android:singleLine="true"
             android:layout_height="wrap_content"
             android:textSize="15sp"
-            android:textColor="@color/abc_secondary_text_material_dark"
+            android:textStyle="bold"
+            android:textColor="@color/black"
             tools:text="Repeat No and Type"/>
 
     </LinearLayout>

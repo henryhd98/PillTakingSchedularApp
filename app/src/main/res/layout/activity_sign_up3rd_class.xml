@@ -5,10 +5,10 @@
     android:id="@+id/signup_3rd_screen_scroll_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@color/grey"
     android:padding="30dp"
     android:transitionName="transition_OTP_screen"
-    tools:context=".Common.LoginSignup.SignUp3rdClass">
+    tools:context="com.Henry.poppinsmarter.LoginStartup.SignUp3rdClass">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,6 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="5dp"
+            android:onClick="goToHome"
             android:src="@drawable/general_back_icon"
             android:transitionName="transition_back_arrow_btn" />
 
@@ -83,7 +84,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/signup_phone_number"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
+                android:layout_width="258dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/country_code_picker"
                 android:hint="@string/enter_phone_number"
@@ -104,23 +105,45 @@
                     android:textColor="@color/black"
                     android:textCursorDrawable="@null" />
 
+
             </com.google.android.material.textfield.TextInputLayout>
+
 
             <Button
                 android:id="@+id/signup_next_button"
+                android:layout_width="105dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/signup_phone_number"
+                android:layout_marginLeft="-12dp"
+                android:layout_marginTop="-56dp"
+                android:layout_toRightOf="@+id/signup_phone_number"
+                android:background="@color/colorPrimary"
+                android:elevation="5dp"
+                android:onClick="VerifyNumberCheck"
+                android:text="Check"
+                android:textColor="@color/white"
+                android:textSize="11sp"
+                android:transitionName="transition_next_btn" />
+
+
+
+
+            <Button
+                android:id="@+id/check_next_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                app:boxStrokeColor="@color/black"
                 android:background="@color/black"
-                android:layout_below="@id/signup_phone_number"
+                android:layout_below="@id/signup_next_button"
                 android:elevation="5dp"
-                android:onClick="callVerifyOTPScreen"
-                android:text="@string/next_btn"
+                android:onClick="goToHome"
+                android:text="Next"
                 android:textColor="@color/white"
                 android:transitionName="transition_next_btn" />
 
             <RelativeLayout
-                android:id="@+id/signup_progress_bar"
+                android:id="@+id/check_progress_bar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -130,6 +153,7 @@
                 android:visibility="gone">
 
                 <ProgressBar
+
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_centerInParent="true" />
@@ -139,17 +163,7 @@
         </RelativeLayout>
 
 
-        <Button
-            android:id="@+id/signup_login_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="#00000000"
-            android:elevation="5dp"
-            android:fontFamily="@font/muli"
-            android:text="@string/login"
-            android:textColor="@color/black"
-            android:transitionName="transition_login_btn" />
+
 
 
     </LinearLayout>

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".Common.LoginSignup.MakeSelection"
+    tools:context="com.Henry.poppinsmarter.LoginStartup.MakeSelection"
     android:background="@color/white"
     android:padding="30dp">
 
@@ -90,6 +90,7 @@
 
 
         </RelativeLayout>
+
 
         <RelativeLayout
             android:id="@+id/make_selection_mail_box"

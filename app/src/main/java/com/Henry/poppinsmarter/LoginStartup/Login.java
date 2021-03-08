@@ -14,10 +14,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.Henry.poppinsmarter.User.UserDashboard;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
@@ -103,7 +105,7 @@ public class Login extends AppCompatActivity {
         }
 
         //Check weather User exists or not in database
-        Query checkUser = FirebaseDatabase.getInstance().getReference("Users").orderByChild("phoneNo").equalTo(_completePhoneNumber);
+        Query checkUser = FirebaseDatabase.getInstance("https://poppinsmarter-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Users").orderByChild("phoneNo").equalTo(_completePhoneNumber);
         checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -130,7 +132,7 @@ public class Login extends AppCompatActivity {
                         SessionManager sessionManager = new SessionManager(com.Henry.poppinsmarter.LoginStartup.Login.this, SessionManager.SESSION_USERSESSION);
                         sessionManager.createLoginSession(_fullname, _username, _email, _phoneNo, _password, _dateOfBirth, _gender);
 
-                        startActivity(new Intent(getApplicationContext(), RetailerDashboard.class));
+                        startActivity(new Intent(getApplicationContext(), UserDashboard.class));
                         finish();
                         progressbar.setVisibility(View.GONE);
 

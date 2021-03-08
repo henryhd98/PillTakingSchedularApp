@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.Henry.poppinsmarter.MainActivity"
-    android:background="@drawable/profile_bk">
+    android:background="@color/grey"
+    android:textStyle="bold"
+    android:textColor="@color/black">
 
 
     <androidx.appcompat.widget.Toolbar
@@ -28,13 +30,17 @@
         android:padding="16dp"
         android:layout_below="@+id/tabs"
         android:textStyle="bold"
+        android:textColor="@color/black"
         android:text="CLICK ON REMINDER TITLE TO SET ALARM"/>
 
         <ListView
             android:id="@+id/list"
             android:layout_below="@+id/reminderText"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            />
 
         <RelativeLayout
             android:id="@+id/empty_view"
@@ -49,6 +55,7 @@
             android:layout_centerInParent="true"
             android:padding="16dp"
             android:gravity="center"
+            android:textColor="@color/black"
             android:text="@string/no_cardetails"/>
     </RelativeLayout>
 
@@ -69,7 +76,9 @@
         android:layout_alignParentRight="true"
         android:layout_margin="@dimen/fab_margin"
         android:src="@drawable/ic_add"
-        app:backgroundTint="@color/colorPrimary"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        app:backgroundTint="@color/colorAccent"
         app:fabSize="normal"/>
 
 </RelativeLayout>

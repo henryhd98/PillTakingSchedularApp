@@ -45,8 +45,10 @@ public class MakeSelection extends AppCompatActivity {
 
     //call Next Screen
     public void callOTPScreenFromMakeSelection(View view){
-        startActivity(new Intent(getApplicationContext(), com.Henry.poppinsmarter.LoginStartup.VerifyOTP.class));
+        startActivity(new Intent(getApplicationContext(), StartupScreen.class));
+        finish();
     }
+
     //call Previous Screen on Back arrow click
     public void callBackScreenFromMakeSelection(View view){
         super.onBackPressed();

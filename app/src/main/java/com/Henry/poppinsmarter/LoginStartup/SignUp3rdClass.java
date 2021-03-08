@@ -1,6 +1,7 @@
 package com.Henry.poppinsmarter.LoginStartup;
 
 import android.app.ActivityOptions;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.provider.Settings;
 import android.util.Pair;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
@@ -15,10 +17,22 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 
+import com.Henry.poppinsmarter.LocationOwner.RetailerDashboard;
+import com.Henry.poppinsmarter.User.UserDashboard;
+import com.Henry.poppinsmarter.data.SessionManager;
+import com.Henry.poppinsmarter.data.UserHelperClass;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
@@ -28,11 +42,15 @@ import com.Henry.poppinsmarter.R;
 
 public class SignUp3rdClass extends AppCompatActivity {
 
+
     //Variables
     ScrollView scrollView;
     TextInputLayout phoneNumber;
     CountryCodePicker countryCodePicker;
     RelativeLayout progressbar;
+    Button next;
+    String fullName, phoneNo, email, username, password, date, gender, whatToDO;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,14 +59,24 @@ public class SignUp3rdClass extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up3rd_class);
 
         //Hooks
+
         scrollView = findViewById(R.id.signup_3rd_screen_scroll_view);
         countryCodePicker = findViewById(R.id.country_code_picker);
         phoneNumber = findViewById(R.id.signup_phone_number);
-        progressbar = findViewById(R.id.signup_progress_bar);
+        progressbar = findViewById(R.id.check_progress_bar);
+        next = findViewById(R.id.signup_next_button);
+        fullName = getIntent().getStringExtra("fullName");
+        email = getIntent().getStringExtra("email");
+        username = getIntent().getStringExtra("username");
+        password = getIntent().getStringExtra("password");
+        date = getIntent().getStringExtra("date");
+        gender = getIntent().getStringExtra("gender");
+        whatToDO = getIntent().getStringExtra("whatToDO");
 
     }
 
-    public void callVerifyOTPScreen(View view) {
+    public void VerifyNumberCheck(View view){
+
 
         //Check Internet Connection
         CheckInternet checkInternet = new CheckInternet();
@@ -56,22 +84,16 @@ public class SignUp3rdClass extends AppCompatActivity {
             showCustomDialog();
             return;
         }
-
         //Validate fields
         if (!validatePhoneNumber()) {
             return;
         }//Validation succeeded and now move to next screen to verify phone number and save data
+
+
+
         progressbar.setVisibility(View.VISIBLE);
 
-
-        //Get all values passed from previous screens using Intent
-        final String _fullName = getIntent().getStringExtra("fullName");
-        final String _email = getIntent().getStringExtra("email");
-        final String _username = getIntent().getStringExtra("username");
-        final String _password = getIntent().getStringExtra("password");
-        final String _date = getIntent().getStringExtra("date");
-        final String _gender = getIntent().getStringExtra("gender");
-
+        Toast.makeText(SignUp3rdClass.this, "GOT THIS FAR", Toast.LENGTH_SHORT).show();
         //Get values from fields
         String _getUserEnteredPhoneNumber = phoneNumber.getEditText().getText().toString().trim(); //Get Phone Number
         if (_getUserEnteredPhoneNumber.charAt(0) == '0') {
@@ -81,7 +103,7 @@ public class SignUp3rdClass extends AppCompatActivity {
 
 
         //Check weather User exists or not in database
-        Query checkUser = FirebaseDatabase.getInstance().getReference("Users").orderByChild("phoneNo").equalTo(_phoneNo);
+        Query checkUser = FirebaseDatabase.getInstance("https://poppinsmarter-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Users").orderByChild("phoneNo").equalTo(_phoneNo);
         checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -94,32 +116,13 @@ public class SignUp3rdClass extends AppCompatActivity {
 
                     phoneNumber.setError(null);
                     phoneNumber.setErrorEnabled(false);
-
-                    Intent intent = new Intent(getApplicationContext(), VerifyOTP.class);
-
-                    //Pass all fields to the next activity
-                    intent.putExtra("fullName", _fullName);
-                    intent.putExtra("email", _email);
-                    intent.putExtra("username", _username);
-                    intent.putExtra("password", _password);
-                    intent.putExtra("date", _date);
-                    intent.putExtra("gender", _gender);
-                    intent.putExtra("phoneNo", _phoneNo);
-                    intent.putExtra("whatToDO", "createNewUser");
-
-                    //Add Transition
-                    Pair[] pairs = new Pair[1];
-                    pairs[0] = new Pair<View, String>(scrollView, "transition_OTP_screen");
-                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(com.Henry.poppinsmarter.LoginStartup.SignUp3rdClass.this, pairs);
-                        startActivity(intent, options.toBundle());
-                    } else {
-                        startActivity(intent);
-                    }
                     progressbar.setVisibility(View.GONE);
-                }
-            }
+                    storeNewUsersData(_phoneNo);
+                    Toast.makeText(SignUp3rdClass.this, "Phone number Valid! press next", Toast.LENGTH_SHORT).show();
 
+                }
+
+            }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Toast.makeText(com.Henry.poppinsmarter.LoginStartup.SignUp3rdClass.this, databaseError.getMessage(), Toast.LENGTH_LONG).show();
@@ -128,6 +131,7 @@ public class SignUp3rdClass extends AppCompatActivity {
         });
 
     }
+
 
 
     /*
@@ -161,9 +165,52 @@ public class SignUp3rdClass extends AppCompatActivity {
     }
 
 
+
+                         /*
+                         Conditions To Update
+                         OR Create New User
+                            */
+        private void storeNewUsersData(String No) {
+
+
+            Toast.makeText(SignUp3rdClass.this, "GOT THIS FAR", Toast.LENGTH_SHORT).show();
+
+
+       if (whatToDO.equals("updateData")) {
+            Intent intent = new Intent(getApplicationContext(), SetNewPassword.class);
+            intent.putExtra("phoneNo", No);
+            startActivity(intent);
+            finish();
+        } else if (whatToDO.equals("createNewUser")) {
+
+            FirebaseDatabase rootNode = FirebaseDatabase.getInstance("https://poppinsmarter-default-rtdb.europe-west1.firebasedatabase.app/");
+            DatabaseReference reference = rootNode.getReference("Users");
+
+            //Create helperclass reference and store data using firebase
+            UserHelperClass addNewUser = new UserHelperClass(fullName, username, email, No, password, date, gender);
+            reference.child(No).setValue(addNewUser);
+
+            //Create a Session
+            SessionManager sessionManager = new SessionManager(SignUp3rdClass.this, SessionManager.SESSION_USERSESSION);
+            sessionManager.createLoginSession(fullName, username, email, No, password, date, gender);
+
+            startActivity(new Intent(getApplicationContext(), UserDashboard.class));
+            Toast.makeText(SignUp3rdClass.this, "Registration Successful!", Toast.LENGTH_SHORT).show();
+            finish();
+        }
+        else {
+
+            Toast.makeText(SignUp3rdClass.this, "Not Completed! Try again.", Toast.LENGTH_SHORT).show();
+        }
+
+
+    }
+
+
+
     /*
-    Validation function
-     */
+   Validation function
+    */
     private boolean validatePhoneNumber() {
         String val = phoneNumber.getEditText().getText().toString().trim();
         String checkspaces = "\\A\\w{1,20}\\z";
@@ -181,5 +228,13 @@ public class SignUp3rdClass extends AppCompatActivity {
 
     }
 
+    public void goToHome(View view) {
+        startActivity(new Intent(getApplicationContext(), StartupScreen.class));
+
+        finish();
+    }
+
+
 }
+
 

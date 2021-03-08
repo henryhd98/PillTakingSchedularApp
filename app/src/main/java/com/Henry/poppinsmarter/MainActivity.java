@@ -11,32 +11,48 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.InputType;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.Henry.poppinsmarter.HelperClasses.HomeAdapter.CategoriesAdapter;
+import com.Henry.poppinsmarter.HelperClasses.HomeAdapter.CategoriesHelperClass;
+import com.Henry.poppinsmarter.LocationOwner.RetailerDashboard;
+import com.Henry.poppinsmarter.LoginStartup.StartupScreen;
+import com.Henry.poppinsmarter.User.AllCategories;
+import com.Henry.poppinsmarter.User.UserDashboard;
 import com.Henry.poppinsmarter.data.AlarmReminderContract;
 import com.Henry.poppinsmarter.data.AlarmReminderDbHelper;
+import com.Henry.poppinsmarter.data.SessionManager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+import java.util.ArrayList;
+
+public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>,NavigationView.OnNavigationItemSelectedListener {
 
     private FloatingActionButton mAddReminderButton;
     private Toolbar mToolbar;
@@ -46,9 +62,19 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     ProgressDialog prgDialog;
     TextView reminderText;
     Button profile;
+    //Variables
+    static final float END_SCALE = 0.7f;
 
+    RecyclerView featuredRecycler, mostViewedRecycler, categoriesRecycler;
+    RecyclerView.Adapter adapter;
+    private GradientDrawable gradient1, gradient2, gradient3, gradient4;
+    ImageView menuIcon, loginSignUpBtn;
+    LinearLayout contentView;
+
+    //Drawer Menu
+    DrawerLayout drawerLayout;
+    NavigationView navigationView;
     private String alarmTitle = "";
-
 
 
     private static final int VEHICLE_LOADER = 0;
@@ -56,15 +82,20 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_user_dashboard);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        menuIcon = findViewById(R.id.menu_icon);
+        contentView = findViewById(R.id.content);
+        loginSignUpBtn = findViewById(R.id.login_signup);
 
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
-        mToolbar.setTitle(R.string.app_name);
+        //Menu Hooks
+        drawerLayout = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.navigation_view);
 
-        profile = (Button) findViewById(R.id.tabs);
+        //call navigation drawer
+        naviagtionDrawer();
 
-
+        //Recycler Views Function Calls
         reminderListView = (ListView) findViewById(R.id.list);
         reminderText = (TextView) findViewById(R.id.reminderText);
         View emptyView = findViewById(R.id.empty_view);
@@ -205,6 +236,113 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         });
 
         builder.show();
+    }
+    //Navigation Drawer Functions
+    private void naviagtionDrawer() {
+
+        //Naviagtion Drawer
+        navigationView.bringToFront();
+        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setCheckedItem(R.id.nav_home);
+        drawerLayout.setDrawerElevation(0);
+
+        menuIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (drawerLayout.isDrawerVisible(GravityCompat.START))
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                else drawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
+
+        animateNavigationDrawer();
+
+    }
+
+    private void animateNavigationDrawer() {
+
+        //Add any color or remove it to use the default one!
+        //To make it transparent use Color.Transparent in side setScrimColor();
+        drawerLayout.setScrimColor(Color.TRANSPARENT);
+        drawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+
+                // Scale the View based on current slide offset
+                final float diffScaledOffset = slideOffset * (1 - END_SCALE);
+                final float offsetScale = 1 - diffScaledOffset;
+                contentView.setScaleX(offsetScale);
+                contentView.setScaleY(offsetScale);
+
+                // Translate the View, accounting for the scaled width
+                final float xOffset = drawerView.getWidth() * slideOffset;
+                final float xOffsetDiff = contentView.getWidth() * diffScaledOffset / 2;
+                final float xTranslation = xOffset - xOffsetDiff;
+                contentView.setTranslationX(xTranslation);
+            }
+        });
+
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.nav_all_categories:
+                startActivity(new Intent(getApplicationContext(), AllCategories.class));
+                break;
+        }
+
+        return true;
+    }
+
+
+    //Recycler Views Functions
+    private void categoriesRecycler() {
+
+        //All Gradients
+        gradient2 = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, new int[]{0xffd4cbe5, 0xffd4cbe5});
+        gradient1 = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, new int[]{0xff7adccf, 0xff7adccf});
+        gradient3 = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, new int[]{0xfff7c59f, 0xFFf7c59f});
+        gradient4 = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, new int[]{0xffb8d7f5, 0xffb8d7f5});
+
+
+        ArrayList<CategoriesHelperClass> categoriesHelperClasses = new ArrayList<>();
+        categoriesHelperClasses.add(new CategoriesHelperClass(gradient1, R.drawable.profile_round, "Education"));
+        categoriesHelperClasses.add(new CategoriesHelperClass(gradient2, R.drawable.hospital_image, "HOSPITAL"));
+        categoriesHelperClasses.add(new CategoriesHelperClass(gradient3, R.drawable.restaurant_image, "Restaurant"));
+        categoriesHelperClasses.add(new CategoriesHelperClass(gradient4, R.drawable.profile_round, "Shopping"));
+        categoriesHelperClasses.add(new CategoriesHelperClass(gradient1, R.drawable.profile_round, "Transport"));
+
+
+        categoriesRecycler.setHasFixedSize(true);
+        adapter = new CategoriesAdapter(categoriesHelperClasses);
+        categoriesRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        categoriesRecycler.setAdapter(adapter);
+
+    }
+
+
+
+
+
+
+    //Normal Functions
+    public void callRetailerScreens(View view) {
+        SessionManager sessionManager = new SessionManager(MainActivity.this, SessionManager.SESSION_USERSESSION);
+        if (sessionManager.checkLogin())
+            startActivity(new Intent(getApplicationContext(), RetailerDashboard.class));
+        else
+            startActivity(new Intent(getApplicationContext(), StartupScreen.class));
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if (drawerLayout.isDrawerVisible(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        } else
+            super.onBackPressed();
     }
 
     public void restartLoader(){

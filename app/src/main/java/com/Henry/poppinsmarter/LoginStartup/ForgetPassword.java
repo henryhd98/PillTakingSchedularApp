@@ -103,8 +103,7 @@ public class ForgetPassword extends AppCompatActivity {
                 if (dataSnapshot.exists()) {
                     phoneNumberTextField.setError(null);
                     phoneNumberTextField.setErrorEnabled(false);
-
-                    Intent intent = new Intent(getApplicationContext(), VerifyOTP.class);
+                    Intent intent = new Intent(getApplicationContext(), SignUp3rdClass.class);
                     intent.putExtra("phoneNo", _completePhoneNumber);
                     intent.putExtra("whatToDO","updateData");
                     startActivity(intent);
