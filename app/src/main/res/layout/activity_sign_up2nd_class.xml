@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
+    android:background="@color/grey"
     android:padding="30dp"
-    tools:context=".Common.LoginSignup.SignUp2ndClass">
+    tools:context="com.Henry.poppinsmarter.LoginStartup.SignUp2ndClass">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -24,7 +24,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp">
+            android:layout_marginTop="35dp">
 
             <TextView
                 android:id="@+id/signup_title_text"
@@ -70,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:text="Choose Gender"
                 android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:textSize="25sp" />
 
             <RadioGroup
                 android:id="@+id/radio_group"
@@ -82,12 +82,14 @@
 
                 <RadioButton
                     android:id="@+id/male"
+                    android:textColor="@color/black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Male" />
 
                 <RadioButton
                     android:id="@+id/female"
+                    android:textColor="@color/black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -95,6 +97,7 @@
 
                 <RadioButton
                     android:id="@+id/others"
+                    android:textColor="@color/black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -114,7 +117,7 @@
                 android:layout_height="wrap_content"
                 android:text="Select Your Age"
                 android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:textSize="25sp" />
 
             <DatePicker
                 android:id="@+id/age_picker"

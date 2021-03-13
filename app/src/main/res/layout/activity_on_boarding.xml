@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/lightWhite"
+    android:background="@color/grey"
     android:padding="20dp"
     tools:context="com.Henry.poppinsmarter.OnBoarding">
 
@@ -28,6 +28,7 @@
         android:drawableRight="@drawable/skip_icon"
         android:onClick="skip"
         android:padding="10dp"
+        android:textColor="@color/black"
         android:text="@string/skip_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -46,6 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
+            android:textColor="@color/black"
             android:text="@string/let_get_started"
             android:visibility="invisible" />
 
@@ -67,6 +69,7 @@
             android:drawableEnd="@drawable/next_btn"
             android:drawableRight="@drawable/next_btn"
             android:onClick="next"
+            android:textColor="@color/black"
             android:paddingBottom="30dp" />
 
 

@@ -2,40 +2,26 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="200dp"
-    android:background="@color/white"
+    android:background="@color/profileEditTextColor"
     android:paddingLeft="15dp">
 
-    <TextView
-        android:id="@+id/menu_slogan"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="slogan_name"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10dp"/>
 
     <TextView
         android:id="@+id/app_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="logo_name"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="0dp"
         android:fontFamily="@font/brandon_grotesque_black"
-        android:textSize="24sp"
-        android:layout_above="@id/menu_slogan"
-        android:textColor="@color/black"/>
+        android:text="Smart Pills"
+        android:textColor="@color/black"
+        android:textSize="24sp" />
 
     <ImageView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="@drawable/menu_menulogo_icon"
-        android:layout_above="@id/app_name"/>
-
-
-    <ImageView
-        android:layout_width="160dp"
-        android:layout_height="175dp"
-        android:src="@drawable/medicine_pic"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true"
+        android:src="@drawable/medicine_pic" />
 
 
 </RelativeLayout>

@@ -14,14 +14,11 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
-import com.Henry.poppinsmarter.HelperClasses.SliderAdapter;
-
 public class OnBoarding extends AppCompatActivity {
 
     //Variables
     ViewPager viewPager;
     LinearLayout dotsLayout;
-    SliderAdapter sliderAdapter;
     TextView[] dots;
     Button letsGetStarted;
     Animation animation;
@@ -37,10 +34,6 @@ public class OnBoarding extends AppCompatActivity {
         viewPager = findViewById(R.id.slider);
         dotsLayout = findViewById(R.id.dots);
         letsGetStarted = findViewById(R.id.get_started_btn);
-
-        //Call adapter
-        sliderAdapter = new SliderAdapter(this);
-        viewPager.setAdapter(sliderAdapter);
 
         //Dots
         addDots(0);

@@ -3,6 +3,7 @@
 
     <group android:checkableBehavior="single">
         <item
+
             android:id="@+id/nav_home"
             android:title="@string/home"
             android:icon="@drawable/menu_dashboard_icon"/>
@@ -10,14 +11,6 @@
             android:id="@+id/nav_search"
             android:title="@string/search"
             android:icon="@drawable/menu_search_icon"/>
-        <item
-            android:id="@+id/nav_all_categories"
-            android:title="@string/all_categories"
-            android:icon="@drawable/menu_categories_icon"/>
-        <item
-            android:id="@+id/nav_add_missing_place"
-            android:title="@string/add_missing_place"
-            android:icon="@drawable/menu_add_missing_place_icon"/>
     </group>
 
 
@@ -42,30 +35,6 @@
         </menu>
     </item>
 
-    <item android:title="Categories">
-        <menu>
-
-            <group android:checkableBehavior="single">
-                <item
-                    android:id="@+id/nav_restaurants"
-                    android:title="restaurants"
-                    android:icon="@drawable/medicine_pic"/>
-                <item
-                    android:id="@+id/nav_bank"
-                    android:title="banks"
-                    android:icon="@drawable/bank_icon"/>
-                <item
-                    android:id="@+id/nav_education"
-                    android:title="education"
-                    android:icon="@drawable/school_icon"/>
-                <item
-                    android:id="@+id/nav_shop"
-                    android:title="shops"
-                    android:icon="@drawable/profile_round"/>
-            </group>
-
-        </menu>
-    </item>
 
     <item android:title="Share">
         <menu>

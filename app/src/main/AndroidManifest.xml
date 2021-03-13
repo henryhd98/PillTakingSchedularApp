@@ -21,8 +21,8 @@
         <activity android:name=".LoginStartup.SignUp2ndClass" />
         <activity android:name=".LoginStartup.SignUp" />
         <activity android:name=".LoginStartup.Login" />
+        <activity android:name=".AlarmActivity"/>
         <activity android:name=".LoginStartup.StartupScreen" />
-        <activity android:name=".User.AllCategories" />
         <activity android:name=".OnBoarding" />
         <activity android:name=".MainActivity" />
         <activity android:name=".SplashScreen">
@@ -49,16 +49,6 @@
                 android:value="Notify" />
 
         </activity>
-        <activity android:name=".ProfileActivity"
-            android:parentActivityName=".MainActivity"
-            android:label="Profile page"
-          >
-            <!-- Parent activity meta-data to support 4.0 and lower -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity"
-                />
-             </activity>
 
         <provider
             android:name=".data.AlarmReminderProvider"

@@ -102,7 +102,7 @@ public class Login extends AppCompatActivity {
             sessionManager.createRememberMeSession(_phoneNumber, _password);
         }
 
-        //Check weather User exists or not in database
+        //Check wether User exists or not in database
         Query checkUser = FirebaseDatabase.getInstance("https://poppinsmarter-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Users").orderByChild("phoneNo").equalTo(_completePhoneNumber);
         checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

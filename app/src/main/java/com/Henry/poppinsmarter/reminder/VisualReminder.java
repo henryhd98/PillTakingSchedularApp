@@ -21,13 +21,20 @@ public class VisualReminder {
 
     DatabaseReference myRef = database.getReference();
 
-    final  DatabaseReference ledstatus1= myRef.child("LED1");
-    final  DatabaseReference ledstatus2= myRef.child("LED2");
-    final  DatabaseReference ledstatus3= myRef.child("LED3");
-    final  DatabaseReference ledstatus4= myRef.child("LED4");
-    final  DatabaseReference ledstatus5= myRef.child("LED5");
-    final  DatabaseReference ledstatus6= myRef.child("LED6");
-    final  DatabaseReference ledstatus7= myRef.child("LED7");
+    final  DatabaseReference ledstatus1= myRef.child("LEDS/LED1/L1");
+    final  DatabaseReference ledstatus2= myRef.child("LEDS/LED2/L2");
+    final  DatabaseReference ledstatus3= myRef.child("LEDS/LED3/L3");
+    final  DatabaseReference ledstatus4= myRef.child("LEDS/LED4/L4");
+    final  DatabaseReference ledstatus5= myRef.child("LEDS/LED5/L5");
+    final  DatabaseReference ledstatus6= myRef.child("LEDS/LED6/L6");
+    final  DatabaseReference ledstatus7= myRef.child("LEDS/LED7/L7");
+    final  DatabaseReference timeStamp1= myRef.child("Activity/mon/alarm");
+    final  DatabaseReference timeStamp2= myRef.child("Activity/tues/alarm");
+    final  DatabaseReference timeStamp3= myRef.child("Activity/wed/alarm");
+    final  DatabaseReference timeStamp4= myRef.child("Activity/thurs/alarm");
+    final  DatabaseReference timeStamp5= myRef.child("Activity/fri/alarm");
+    final  DatabaseReference timeStamp6= myRef.child("Activity/sat/alarm");
+    final  DatabaseReference timeStamp7= myRef.child("Activity/sun/alarm");
     private Calendar mCalendar;
     private int mYear, mMonth, mHour, mMinute, mDay, dayInt;
     private String mTime;
@@ -46,6 +53,7 @@ public class VisualReminder {
         mTime = mHour + ":" + mMinute;
 
         int day = mCalendar.get(Calendar.DAY_OF_WEEK);
+        String dateTime= "Time of alarm: " + mDate+ " @" + mTime;
 
 
         // PendingIntent operation = ReminderAlarmService.on(dayInt); // Passing the 3 parameters into an object of the pending intent
@@ -54,24 +62,31 @@ public class VisualReminder {
         switch (day) {
             case 1:
                 ledstatus7.setValue("ON");
+                timeStamp7.setValue(dateTime);
                 break;
             case 2:
                 ledstatus1.setValue("ON");
+                timeStamp1.setValue(dateTime);
                 break;
             case 3:
                 ledstatus2.setValue("ON");
+                timeStamp2.setValue(dateTime);
                 break;
             case 4:
                 ledstatus3.setValue("ON");
+                timeStamp3.setValue(dateTime);
                 break;
             case 5:
                 ledstatus4.setValue("ON");
+                timeStamp4.setValue(dateTime);
                 break;
             case 6:
                 ledstatus5.setValue("ON");
+                timeStamp5.setValue(dateTime);
                 break;
             case 7:
                 ledstatus6.setValue("ON");
+                timeStamp6.setValue(dateTime);
                 break;
             default:
                 ledstatus1.setValue("OFF");
@@ -81,6 +96,13 @@ public class VisualReminder {
                 ledstatus5.setValue("OFF");
                 ledstatus6.setValue("OFF");
                 ledstatus7.setValue("OFF");
+                timeStamp1.setValue("Monday, no alarms set");
+                timeStamp2.setValue("Monday, no alarms set");
+                timeStamp3.setValue("Monday, no alarms set");
+                timeStamp4.setValue("Monday, no alarms set");
+                timeStamp5.setValue("Monday, no alarms set");
+                timeStamp6.setValue("Monday, no alarms set");
+                timeStamp7.setValue("Monday, no alarms set");
 
 
         }

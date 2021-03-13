@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SplashScreen"
-    android:background="@color/colorPrimary">
+    android:background="@color/grey">
 
 
     <ImageView
@@ -25,7 +25,7 @@
         android:layout_marginEnd="111dp"
         android:layout_marginRight="111dp"
         android:layout_marginBottom="8dp"
-        android:text="powered by"
+        android:text="Creation of Henry Duruji"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/backgound_image"
         app:layout_constraintStart_toStartOf="@+id/backgound_image" />

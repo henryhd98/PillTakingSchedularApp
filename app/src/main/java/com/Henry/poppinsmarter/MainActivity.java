@@ -16,11 +16,9 @@ import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.InputType;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -28,28 +26,21 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.Henry.poppinsmarter.HelperClasses.HomeAdapter.CategoriesAdapter;
-import com.Henry.poppinsmarter.HelperClasses.HomeAdapter.CategoriesHelperClass;
 import com.Henry.poppinsmarter.LocationOwner.RetailerDashboard;
 import com.Henry.poppinsmarter.LoginStartup.StartupScreen;
-import com.Henry.poppinsmarter.User.AllCategories;
 import com.Henry.poppinsmarter.data.AlarmReminderContract;
 import com.Henry.poppinsmarter.data.AlarmReminderDbHelper;
 import com.Henry.poppinsmarter.data.SessionManager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
-import java.util.ArrayList;
-
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>,NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private FloatingActionButton mAddReminderButton;
     private Toolbar mToolbar;
@@ -80,16 +71,12 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_dashboard);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        menuIcon = findViewById(R.id.menu_icon);
         contentView = findViewById(R.id.content);
         loginSignUpBtn = findViewById(R.id.login_signup);
 
         //Menu Hooks
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.navigation_view);
-
-        //call navigation drawer
-        naviagtionDrawer();
 
         //Recycler Views Function Calls
         reminderListView = (ListView) findViewById(R.id.list);
@@ -135,12 +122,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     }
 
-
-    private void switchActivitiesWithData() {
-        Intent switchActivityIntent = new Intent(this, ProfileActivity.class);
-        switchActivityIntent.putExtra("message", "From: " + MainActivity.class.getSimpleName());
-        startActivity(switchActivityIntent);
-    }
 
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {  //What is displayed in the list view, calling all columns
@@ -227,90 +208,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         builder.show();
     }
-    //Navigation Drawer Functions
-    private void naviagtionDrawer() {
-
-        //Naviagtion Drawer
-        navigationView.bringToFront();
-        navigationView.setNavigationItemSelectedListener(this);
-        navigationView.setCheckedItem(R.id.nav_home);
-        drawerLayout.setDrawerElevation(0);
-
-        menuIcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (drawerLayout.isDrawerVisible(GravityCompat.START))
-                    drawerLayout.closeDrawer(GravityCompat.START);
-                else drawerLayout.openDrawer(GravityCompat.START);
-            }
-        });
-
-        animateNavigationDrawer();
-
-    }
-
-    private void animateNavigationDrawer() {
-
-        //Add any color or remove it to use the default one!
-        //To make it transparent use Color.Transparent in side setScrimColor();
-        drawerLayout.setScrimColor(Color.TRANSPARENT);
-        drawerLayout.addDrawerListener(new DrawerLayout.SimpleDrawerListener() {
-            @Override
-            public void onDrawerSlide(View drawerView, float slideOffset) {
-
-                // Scale the View based on current slide offset
-                final float diffScaledOffset = slideOffset * (1 - END_SCALE);
-                final float offsetScale = 1 - diffScaledOffset;
-                contentView.setScaleX(offsetScale);
-                contentView.setScaleY(offsetScale);
-
-                // Translate the View, accounting for the scaled width
-                final float xOffset = drawerView.getWidth() * slideOffset;
-                final float xOffsetDiff = contentView.getWidth() * diffScaledOffset / 2;
-                final float xTranslation = xOffset - xOffsetDiff;
-                contentView.setTranslationX(xTranslation);
-            }
-        });
-
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-        switch (item.getItemId()) {
-            case R.id.nav_all_categories:
-                startActivity(new Intent(getApplicationContext(), AllCategories.class));
-                break;
-        }
-
-        return true;
-    }
 
 
-    //Recycler Views Functions
-    private void categoriesRecycler() {
 
-        //All Gradients
-        gradient2 = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, new int[]{0xffd4cbe5, 0xffd4cbe5});
-        gradient1 = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, new int[]{0xff7adccf, 0xff7adccf});
-        gradient3 = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, new int[]{0xfff7c59f, 0xFFf7c59f});
-        gradient4 = new GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, new int[]{0xffb8d7f5, 0xffb8d7f5});
-
-
-        ArrayList<CategoriesHelperClass> categoriesHelperClasses = new ArrayList<>();
-        categoriesHelperClasses.add(new CategoriesHelperClass(gradient1, R.drawable.profile_round, "Education"));
-        categoriesHelperClasses.add(new CategoriesHelperClass(gradient2, R.drawable.hospital_image, "HOSPITAL"));
-        categoriesHelperClasses.add(new CategoriesHelperClass(gradient3, R.drawable.restaurant_image, "Restaurant"));
-        categoriesHelperClasses.add(new CategoriesHelperClass(gradient4, R.drawable.profile_round, "Shopping"));
-        categoriesHelperClasses.add(new CategoriesHelperClass(gradient1, R.drawable.profile_round, "Transport"));
-
-
-        categoriesRecycler.setHasFixedSize(true);
-        adapter = new CategoriesAdapter(categoriesHelperClasses);
-        categoriesRecycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        categoriesRecycler.setAdapter(adapter);
-
-    }
 
 
 
@@ -318,12 +218,16 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
 
     //Normal Functions
-    public void callRetailerScreens(View view) {
+    public void callProfileDeetsScreens(View view) {
         SessionManager sessionManager = new SessionManager(MainActivity.this, SessionManager.SESSION_USERSESSION);
         if (sessionManager.checkLogin())
             startActivity(new Intent(getApplicationContext(), RetailerDashboard.class));
         else
             startActivity(new Intent(getApplicationContext(), StartupScreen.class));
+    }
+
+    public void activityHistory(View view) {
+            startActivity(new Intent(getApplicationContext(), AlarmActivity.class));
     }
 
     @Override

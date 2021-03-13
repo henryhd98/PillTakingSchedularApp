@@ -9,6 +9,7 @@
     <item name="actionModeBackground">@color/colorPrimary</item>
     <item name="actionBarPopupTheme">@style/ThemeOverlay.AppCompat</item>
     <item name="windowNoTitle">true</item>
+    <item name="android:textColor">#040404</item>
     <item name="windowActionModeOverlay">true</item>
 </style>
     <!--  Menu Style  -->
@@ -17,6 +18,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <!-- Background color when SELECTED -->
         <item name="colorControlHighlight">@color/colorAccent</item>
+        <item name="android:textColor">#040404</item>
 
     </style>
     <style name="Theme.MyApplication.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
