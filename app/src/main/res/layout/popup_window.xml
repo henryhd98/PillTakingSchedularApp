@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:background="@color/grey">
+
+    <TextView
+        android:id="@+id/textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_margin="30dp"
+        android:textSize="35sp"
+        android:text="Did you take your pill?"/>
+
+    <Button
+        android:id="@+id/yes"
+        android:layout_width="196dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textview"
+        android:layout_marginTop="80dp"
+        android:text="Yes"
+        android:textColor="@color/white"
+        android:textSize="20dp" />
+
+    <Button
+        android:id="@+id/no"
+        android:layout_width="196dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textview"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="80dp"
+        android:textColor="@color/white"
+        android:text="No"
+        android:textSize="20dp" />
+
+</RelativeLayout>

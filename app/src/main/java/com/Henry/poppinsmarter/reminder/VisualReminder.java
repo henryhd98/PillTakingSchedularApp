@@ -1,7 +1,11 @@
 package com.Henry.poppinsmarter.reminder;
 
+import android.app.AlertDialog;
 import android.app.PendingIntent;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -11,6 +15,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.net.HttpCookie;
 import java.util.Calendar;
+
+import static android.content.Intent.getIntent;
 
 public class VisualReminder {
 
@@ -35,13 +41,20 @@ public class VisualReminder {
     final  DatabaseReference timeStamp5= myRef.child("Activity/fri/alarm");
     final  DatabaseReference timeStamp6= myRef.child("Activity/sat/alarm");
     final  DatabaseReference timeStamp7= myRef.child("Activity/sun/alarm");
+    final  DatabaseReference mon= myRef.child("Activity/mon/Taken");
+    final  DatabaseReference tue= myRef.child("Activity/tue/Taken");
+    final  DatabaseReference wed= myRef.child("Activity/wed/Taken");
+    final  DatabaseReference thurs= myRef.child("Activity/thurs/Taken");
+    final  DatabaseReference fri= myRef.child("Activity/fri/Taken");
+    final  DatabaseReference sat= myRef.child("Activity/sat/Taken");
+    final  DatabaseReference sun= myRef.child("Activity/sun/Taken");
     private Calendar mCalendar;
     private int mYear, mMonth, mHour, mMinute, mDay, dayInt;
     private String mTime;
     private String mDate;
 
-    public int setLedStatus() {
 
+    public int setLedStatus() {
         mCalendar = Calendar.getInstance(); //Initialising the Calender
         mHour = mCalendar.get(Calendar.HOUR_OF_DAY);
         mMinute = mCalendar.get(Calendar.MINUTE);
@@ -53,10 +66,12 @@ public class VisualReminder {
         mTime = mHour + ":" + mMinute;
 
         int day = mCalendar.get(Calendar.DAY_OF_WEEK);
-        String dateTime= "Time of alarm: " + mDate+ " @" + mTime;
+        String dateTime= "Alarm Info: " + mDate+ " @" + mTime;
 
 
-        // PendingIntent operation = ReminderAlarmService.on(dayInt); // Passing the 3 parameters into an object of the pending intent
+
+
+
 
 
         switch (day) {
@@ -89,13 +104,7 @@ public class VisualReminder {
                 timeStamp6.setValue(dateTime);
                 break;
             default:
-                ledstatus1.setValue("OFF");
-                ledstatus2.setValue("OFF");
-                ledstatus3.setValue("OFF");
-                ledstatus4.setValue("OFF");
-                ledstatus5.setValue("OFF");
-                ledstatus6.setValue("OFF");
-                ledstatus7.setValue("OFF");
+
                 timeStamp1.setValue("Monday, no alarms set");
                 timeStamp2.setValue("Monday, no alarms set");
                 timeStamp3.setValue("Monday, no alarms set");
@@ -237,4 +246,83 @@ public class VisualReminder {
         return day;
 
     }
+
+    public void taken(){
+        mCalendar = Calendar.getInstance(); //Initialising the Calender
+        int day = mCalendar.get(Calendar.DAY_OF_WEEK);
+        switch (day) {
+            case 1:
+                sun.setValue("yes");
+
+                break;
+            case 2:
+                mon.setValue("yes");
+                break;
+            case 3:
+                tue.setValue("yes");
+                break;
+            case 4:
+                wed.setValue("yes");
+                break;
+            case 5:
+                thurs.setValue("yes");
+                break;
+            case 6:
+                fri.setValue("yes");
+                break;
+            case 7:
+                sat.setValue("yes");
+                break;
+            default:
+
+
+
+        }
+    }
+
+    public void notTaken(){
+        mCalendar = Calendar.getInstance(); //Initialising the Calender
+        int day = mCalendar.get(Calendar.DAY_OF_WEEK);
+        switch (day) {
+            case 1:
+                sun.setValue("no");
+
+                break;
+            case 2:
+                mon.setValue("no");
+                break;
+            case 3:
+                tue.setValue("no");
+                break;
+            case 4:
+                wed.setValue("no");
+                break;
+            case 5:
+                thurs.setValue("no");
+                break;
+            case 6:
+                fri.setValue("no");
+                break;
+            case 7:
+                sat.setValue("no");
+                break;
+            default:
+
+
+
+        }
+    }
+    public void turnLEDoff(){
+        ledstatus1.setValue("OFF");
+        ledstatus2.setValue("OFF");
+        ledstatus3.setValue("OFF");
+        ledstatus4.setValue("OFF");
+        ledstatus5.setValue("OFF");
+        ledstatus6.setValue("OFF");
+        ledstatus7.setValue("OFF");
+
+
+        }
 }
+
+

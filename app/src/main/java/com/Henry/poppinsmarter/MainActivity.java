@@ -3,9 +3,11 @@ package com.Henry.poppinsmarter;
 
 import android.app.AlertDialog;
 import android.app.LoaderManager;
+import android.app.Notification;
 import android.app.ProgressDialog;
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -32,16 +34,17 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.Henry.poppinsmarter.LocationOwner.RetailerDashboard;
+import com.Henry.poppinsmarter.LocationOwner.Dashboard;
 import com.Henry.poppinsmarter.LoginStartup.StartupScreen;
 import com.Henry.poppinsmarter.data.AlarmReminderContract;
 import com.Henry.poppinsmarter.data.AlarmReminderDbHelper;
 import com.Henry.poppinsmarter.data.SessionManager;
+import com.Henry.poppinsmarter.reminder.ReminderAlarmService;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
-
+private Context context;
     private FloatingActionButton mAddReminderButton;
     private Toolbar mToolbar;
     AlarmCursorAdapter mCursorAdapter;
@@ -221,7 +224,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public void callProfileDeetsScreens(View view) {
         SessionManager sessionManager = new SessionManager(MainActivity.this, SessionManager.SESSION_USERSESSION);
         if (sessionManager.checkLogin())
-            startActivity(new Intent(getApplicationContext(), RetailerDashboard.class));
+            startActivity(new Intent(getApplicationContext(), Dashboard.class));
         else
             startActivity(new Intent(getApplicationContext(), StartupScreen.class));
     }
@@ -229,6 +232,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public void activityHistory(View view) {
             startActivity(new Intent(getApplicationContext(), AlarmActivity.class));
     }
+
+
 
     @Override
     public void onBackPressed() {

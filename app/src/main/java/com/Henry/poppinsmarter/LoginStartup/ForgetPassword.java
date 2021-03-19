@@ -94,19 +94,17 @@ public class ForgetPassword extends AppCompatActivity {
         }
         final String _completePhoneNumber = "+" + countryCodePicker.getFullNumber() + _phoneNumber;
 
-        //Check weather User exists or not in database
-        Query checkUser = FirebaseDatabase.getInstance().getReference("Users").orderByChild("phoneNo").equalTo(_completePhoneNumber);
+        //Check whether User exists or not in database
+        Query checkUser = FirebaseDatabase.getInstance("https://poppinsmarter-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Users").orderByChild("phoneNo").equalTo(_completePhoneNumber);
         checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                //If Phone Number exists then Call OTP to verify that it is his/her phone number
+                //If Phone Number exists then Call to DB to show user password
                 if (dataSnapshot.exists()) {
                     phoneNumberTextField.setError(null);
                     phoneNumberTextField.setErrorEnabled(false);
-                    Intent intent = new Intent(getApplicationContext(), SignUp3rdClass.class);
-                    intent.putExtra("phoneNo", _completePhoneNumber);
-                    intent.putExtra("whatToDO","updateData");
-                    startActivity(intent);
+                    String _password = dataSnapshot.child(_completePhoneNumber).child("password").getValue(String.class);
+                    Toast.makeText(com.Henry.poppinsmarter.LoginStartup.ForgetPassword.this,"Your Password is: " + _password, Toast.LENGTH_LONG).show();
                     finish();
 
                     progressBar.setVisibility(View.GONE);

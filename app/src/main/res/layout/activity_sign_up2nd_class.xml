@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/grey"
+    android:background="#7E7B7B"
     android:padding="30dp"
     tools:context="com.Henry.poppinsmarter.LoginStartup.SignUp2ndClass">
 
@@ -74,7 +74,7 @@
 
             <RadioGroup
                 android:id="@+id/radio_group"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
@@ -82,26 +82,29 @@
 
                 <RadioButton
                     android:id="@+id/male"
-                    android:textColor="@color/black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Male" />
+                    android:text="Male"
+                    android:textColor="@color/black"
+                    android:textSize="25sp" />
 
                 <RadioButton
                     android:id="@+id/female"
-                    android:textColor="@color/black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text="Female" />
+                    android:text="Female"
+                    android:textColor="@color/black"
+                    android:textSize="25sp" />
 
                 <RadioButton
                     android:id="@+id/others"
-                    android:textColor="@color/black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:text="Other" />
+                    android:text="Other"
+                    android:textColor="@color/black"
+                    android:textSize="25sp" />
             </RadioGroup>
 
 
@@ -121,6 +124,9 @@
 
             <DatePicker
                 android:id="@+id/age_picker"
+                android:calendarTextColor="@color/black"
+                android:outlineSpotShadowColor="@color/black"
+                android:outlineAmbientShadowColor="@color/black"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:calendarViewShown="false"

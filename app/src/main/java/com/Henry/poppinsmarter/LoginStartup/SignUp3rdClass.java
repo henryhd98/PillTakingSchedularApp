@@ -82,7 +82,6 @@ public class SignUp3rdClass extends AppCompatActivity {
 
         progressbar.setVisibility(View.VISIBLE);
 
-        Toast.makeText(SignUp3rdClass.this, "GOT THIS FAR", Toast.LENGTH_SHORT).show();
         //Get values from fields
         String _getUserEnteredPhoneNumber = phoneNumber.getEditText().getText().toString().trim(); //Get Phone Number
         if (_getUserEnteredPhoneNumber.charAt(0) == '0') {
@@ -91,7 +90,7 @@ public class SignUp3rdClass extends AppCompatActivity {
         final String _phoneNo = "+" + countryCodePicker.getFullNumber() + _getUserEnteredPhoneNumber;
 
 
-        //Check weather User exists or not in database
+        //Check whether User exists or not in database
         Query checkUser = FirebaseDatabase.getInstance("https://poppinsmarter-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Users").orderByChild("phoneNo").equalTo(_phoneNo);
         checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -160,10 +159,6 @@ public class SignUp3rdClass extends AppCompatActivity {
                          OR Create New User
                             */
         private void storeNewUsersData(String No) {
-
-
-            Toast.makeText(SignUp3rdClass.this, "GOT THIS FAR", Toast.LENGTH_SHORT).show();
-
 
        if (whatToDO.equals("updateData")) {
             Intent intent = new Intent(getApplicationContext(), SetNewPassword.class);

@@ -13,7 +13,7 @@ import com.Henry.poppinsmarter.R;
 
 import java.util.HashMap;
 
-public class RetailerDashboard extends AppCompatActivity {
+public class Dashboard extends AppCompatActivity {
 
     SessionManager sessionManager;
     @Override
