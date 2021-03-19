@@ -1,0 +1,240 @@
+
+#include <Firebase_Arduino_WiFiNINA.h>
+#include <WiFiNINA.h>
+#include <SPI.h>
+#define LED1 13
+#define LED2 12
+#define LED3 11
+#define LED4 10
+#define LED5 9
+#define LED6 8
+#define LED7 7
+#define LDR A0
+
+#define FIREBASE_HOST "poppinsmarter-default-rtdb.europe-west1.firebasedatabase.app"
+//database api url
+#define FIREBASE_AUTH "H1MhFRD2XyD4NERXxWpOe9cuQiAuKsFjKZA9tnMq"
+//database secret
+#define WIFI_SSID "eir64773233"
+#define WIFI_PASSWORD "3feMGPUA5R"
+
+
+char ssid[] = WIFI_SSID;
+char pass[] = WIFI_PASSWORD;
+char FBHost[] = FIREBASE_HOST;
+char FBAuth[] = FIREBASE_AUTH;
+
+//Define Firebase data object
+FirebaseData firebaseData;
+
+String path = "/LEDS";
+
+void setup() {
+  Serial.begin(9600);
+  pinMode(LED1, OUTPUT);
+  pinMode(LED2, OUTPUT);
+  pinMode(LED3, OUTPUT);
+  pinMode(LED4, OUTPUT);
+  pinMode(LED5, OUTPUT);
+  pinMode(LED6, OUTPUT);
+  pinMode(LED7, OUTPUT);
+  pinMode(LDR, INPUT);
+
+
+
+  WiFi.begin(ssid, pass); // Connect to WIFI
+
+
+
+  while ( WiFi.status() != WL_CONNECTED) { //Wait until connected
+    delay(100);
+    digitalWrite(LED1, HIGH);    // turn on LED1
+    delay(100);                  // wait for 200ms
+    digitalWrite(LED4, HIGH);    // turn on LED2
+    delay(100);                  // wait for 200ms
+    digitalWrite(LED7, HIGH);    // turn on LED3
+    delay(100);                  // wait for 200ms
+    digitalWrite(LED1, LOW);     // turn off LED3
+    delay(200);                  // wait for 300ms before running program all over again
+    digitalWrite(LED4, LOW);     // turn off LED3
+    delay(200);                  // wait for 300ms before running program all over again
+    digitalWrite(LED7, LOW);     // turn off LED3
+    delay(200);                  // wait for 300ms before running program all over again
+    //Blink till wifi connected
+    Serial.print(" Waiting for connection.. ");
+  }
+
+
+  Serial.println("");
+  Serial.println("WiFi Connected");
+  digitalWrite(LED1, HIGH);
+  delay(1000);
+  digitalWrite(LED1, LOW);
+  delay(1000);
+  Serial.println("IP address: ");
+  Serial.println(WiFi.localIP());
+
+  Serial.begin(9600);
+  delay(1000);
+  Serial.println();
+
+  Firebase.begin(FBHost, FBAuth, ssid, pass );    //Provide the autntication data & connect to real time DB
+  Firebase.reconnectWiFi(true);
+  delay(1000);
+
+
+}
+
+/*String firebaseGet() {
+  String x;
+  x = Firebase.getString(firebaseData, path + "/LED1" );
+  yield();
+  delay(100);
+  return x;
+  delay(100);
+  Serial.print("VALUE: ");
+  Serial.println(firebaseData.stringData());
+  }
+*/
+
+void loop() {
+
+ 
+  int ldrStatus = analogRead(LDR);
+  Serial.println("light intensity:");
+  Serial.println(ldrStatus);
+
+  String L1, L2, L3, L4, L5, L6, L7;
+
+  // get data from Firebase with specific path
+  Firebase.getString(firebaseData, "/LEDS/LED1/L1");
+  Serial.print("L1 ");
+  L1 = firebaseData.stringData();
+  Serial.println(L1);
+
+  Firebase.getString(firebaseData, "/LEDS/LED2/L2");
+  Serial.print("L2: ");
+  L2 = firebaseData.stringData();
+  Serial.println(L2);
+
+  Firebase.getString(firebaseData, "/LEDS/LED3/L3");
+  Serial.print("L3: ");
+  L3 = firebaseData.stringData();
+  Serial.println(L3);
+
+  Firebase.getString(firebaseData, "/LEDS/LED4/L4");
+  Serial.print("L4: ");
+  L4 = firebaseData.stringData();
+  Serial.println(L4);
+
+  Firebase.getString(firebaseData, "/LEDS/LED5/L5");
+  Serial.print("L5: ");
+  L5 = firebaseData.stringData();
+  Serial.println(L5);
+
+  Firebase.getString(firebaseData, "/LEDS/LED6/L6");
+  Serial.print("L6: ");
+  L6 = firebaseData.stringData();
+  Serial.println(L6);
+
+  Firebase.getString(firebaseData, "/LEDS/LED7/L7");
+  Serial.print("L7: ");
+  L7 = firebaseData.stringData();
+  Serial.println(L7);
+
+
+  //A check to the DB if one of the LEDS should be LIT
+
+  if (L1 == "ON" )
+  {
+    digitalWrite(LED1, HIGH);
+
+
+  } else {
+    digitalWrite(LED1, LOW);
+
+  }
+
+
+  if (L2 == "ON" )
+  {
+    digitalWrite(LED2, HIGH);
+
+  } else {
+    digitalWrite(LED2, LOW);
+
+  }
+
+  if (L3 == "ON")
+  {
+    digitalWrite(LED3, HIGH);
+
+  } else {
+    digitalWrite(LED3, LOW);
+   
+  }
+ 
+  if (L4 == "ON")
+  {
+    digitalWrite(LED4, HIGH);
+   
+
+  } else {
+    digitalWrite(LED4, LOW);
+  
+  }
+
+
+
+  if (L5 == "ON")
+  {
+    digitalWrite(LED5, HIGH);
+
+  } else {
+    digitalWrite(LED5, LOW);
+  }
+
+  if (L6 == "ON" )
+  {
+    digitalWrite(LED6, HIGH);
+
+  } else {
+    digitalWrite(LED6, LOW);
+  }
+
+  if (L7 == "ON")
+  {
+    digitalWrite(LED7, HIGH);
+
+  } else {
+    digitalWrite(LED7, LOW);
+  
+  }
+
+
+
+  
+
+
+
+  // get data from Firebase with specific path
+
+
+
+
+  //if(firebaseData.jsonData() == ({"L1":"OFF"})){
+  //digitalWrite(LED1, HIGH);
+  // }
+
+
+  /*
+    if (firebaseResult=="ON"){
+      //code to happen if the status is ON
+    }else{
+      //code to happen if the status is OFF
+    }
+
+  */
+
+
+}
